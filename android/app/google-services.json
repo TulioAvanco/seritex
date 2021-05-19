@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "588818886813",
+    "firebase_url": "https://api-seritex-default-rtdb.firebaseio.com",
+    "project_id": "api-seritex",
+    "storage_bucket": "api-seritex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588818886813:android:ab727fc7e23055faf7e474",
+        "android_client_info": {
+          "package_name": "com.projeto.seritex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588818886813-i356mmlo89t2m6cf5klepnkdrfj2iki1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEHy1P2UlIjUdfbh3xA6Wj5qUW70jkzbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588818886813-i356mmlo89t2m6cf5klepnkdrfj2iki1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

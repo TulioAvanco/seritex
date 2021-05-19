@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seritex/Views/routes.dart';
+import 'package:seritex/Views/app.dart';
 
-void main() => runApp(Routes());
+void main() => runApp(App());

@@ -4,7 +4,7 @@ import 'package:seritex/Views/cadastro.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
 import 'package:seritex/Views/homeAdmin.page.dart';
 
-class Routes extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +15,7 @@ class Routes extends StatelessWidget {
         '/homeadm': (context) => HomeAdm(),
         '/cotacao': (context) => Cotacao(),
       },
-      initialRoute: '/cotacao',
+      initialRoute: '/homeadm',
     );
   }
 }
