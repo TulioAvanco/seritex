@@ -1,9 +1,9 @@
 class Pessoa {
-  String? idPessoa;
-  String? senha;
-  String? nome;
-  String? email;
-  String? telefone;
+  String idPessoa;
+  String senha;
+  String nome;
+  String email;
+  String telefone;
   int status;
 
   Pessoa(
