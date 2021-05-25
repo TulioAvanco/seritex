@@ -1,12 +1,13 @@
-class Pessoa {
+class Usuario {
   String idPessoa;
   String senha;
   String nome;
+  String login;
   String email;
   String telefone;
   int status;
 
-  Pessoa(
+  Usuario(
       {this.idPessoa,
       this.senha,
       this.nome,

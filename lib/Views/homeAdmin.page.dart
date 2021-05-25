@@ -10,6 +10,7 @@ class _HomeAdmState extends State<HomeAdm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Home'),
         backgroundColor: Color.fromARGB(255, 25, 118, 70),

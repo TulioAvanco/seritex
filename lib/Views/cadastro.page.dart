@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:seritex/Controller/cadastro.controller.dart';
+import 'package:seritex/Models/usuario.model.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -8,12 +10,23 @@ class Cadastro extends StatefulWidget {
 class _CadastroState extends State<Cadastro> {
   final _formKey2 = GlobalKey<FormState>();
   var _passwordobscure = true;
+  final _novoUser = new Usuario();
 
-  cadastrese() {}
+  cadastrese(BuildContext context) {
+    _formKey2.currentState.save();
+    if (_formKey2.currentState.validate()) {
+      _formKey2.currentState.save();
+      CadastroController().addUser(_novoUser);
+      Navigator.of(context).pop(true);
+    }
+  }
+
+  String confirmaSenha;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cadastro'),
         centerTitle: true,
@@ -44,6 +57,9 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => _novoUser.login = value,
+                  validator: (value) =>
+                      value.isEmpty ? "Campo Obrigatório" : null,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 TextFormField(
@@ -74,6 +90,9 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => _novoUser.senha = value,
+                  validator: (value) =>
+                      value != confirmaSenha ? "Senhas não coicidem! " : null,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 TextFormField(
@@ -91,6 +110,7 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => confirmaSenha = value,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 TextFormField(
@@ -107,6 +127,9 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => _novoUser.nome = value,
+                  validator: (value) =>
+                      value.isEmpty ? "Campo Obrigatório" : null,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 TextFormField(
@@ -123,6 +146,9 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => _novoUser.email = value,
+                  validator: (value) =>
+                      value.isEmpty ? "Campo Obrigatório" : null,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 TextFormField(
@@ -139,10 +165,13 @@ class _CadastroState extends State<Cadastro> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 25, 118, 70)))),
+                  onSaved: (value) => _novoUser.telefone = value,
+                  validator: (value) =>
+                      value.isEmpty ? "Campo Obrigatório" : null,
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
                 ElevatedButton(
-                  onPressed: () => cadastrese(),
+                  onPressed: () => cadastrese(context),
                   child: Text('Cadastrar',
                       style: TextStyle(fontSize: 23, color: Colors.white)),
                   style: ButtonStyle(
