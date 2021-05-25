@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:seritex/Views/Login.page.dart';
 import 'package:seritex/Views/cadastro.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
 import 'package:seritex/Views/homeAdmin.page.dart';
+import 'package:seritex/Views/login.page.dart';
 
 class App extends StatelessWidget {
   @override
