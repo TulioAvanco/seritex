@@ -1,6 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:seritex/Models/Pessoa.model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:seritex/Models/usuario.model.dart';
 
 class CadastroController {
-  void addPessoa(Pessoa pessoa) {}
+  void addUser(Usuario user) {
+    FirebaseFirestore.instance.collection('usuarios').add({
+      'login': user.login,
+      'senha': user.senha,
+      'nome': user.nome,
+      'email': user.email,
+      'telefone': user.telefone,
+      'status': user.status,
+    });
+  }
 }
