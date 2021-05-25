@@ -19,8 +19,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+          child: Container(
         margin: EdgeInsets.all(60),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +111,7 @@ class _LoginState extends State<Login> {
             )
           ],
         ),
-      ),
+      )),
     );
   }
 }
