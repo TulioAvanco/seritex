@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.projeto.seritex">
+    package="com.example.seritex">
    <application
         android:label="seritex"
         android:icon="@mipmap/ic_launcher">

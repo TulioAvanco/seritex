@@ -53,7 +53,7 @@ class _CotacaoState extends State<Cotacao> {
                               );
                             }).toList(),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )
