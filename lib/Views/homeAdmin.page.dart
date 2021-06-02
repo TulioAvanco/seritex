@@ -6,7 +6,9 @@ class HomeAdm extends StatefulWidget {
   _HomeAdmState createState() => _HomeAdmState();
 }
 
-Future<dynamic> novaEntrega(BuildContext context) async {}
+Future<dynamic> novoCorte(BuildContext context) async {
+  await Navigator.of(context).pushNamed('/addCorte');
+}
 
 class _HomeAdmState extends State<HomeAdm> {
   @override
@@ -213,8 +215,8 @@ class _HomeAdmState extends State<HomeAdm> {
           Container(
             margin: EdgeInsets.only(left: 50, right: 50),
             child: ElevatedButton(
-              onPressed: () => novaEntrega(context),
-              child: Text('Nova Entrega'),
+              onPressed: () => novoCorte(context),
+              child: Text('Novo Corte'),
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Color.fromARGB(255, 25, 118, 70))),

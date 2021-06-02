@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seritex/Views/addCorte.dart';
 import 'package:seritex/Views/cadastro.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
 import 'package:seritex/Views/homeAdmin.page.dart';
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
         '/cadastro': (context) => Cadastro(),
         '/homeadm': (context) => HomeAdm(),
         '/cotacao': (context) => Cotacao(),
+        '/addCorte': (context) => AddCorte(),
       },
       initialRoute: '/homeadm',
     );

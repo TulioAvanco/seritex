@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             Color.fromARGB(255, 25, 118, 70)),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(26))),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(8))),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   ElevatedButton(
@@ -101,7 +101,7 @@ class _LoginState extends State<Login> {
                     ),
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.all(16),
+                          EdgeInsets.all(8),
                         ),
                         backgroundColor: MaterialStateProperty.all(
                             Color.fromARGB(255, 1, 41, 95))),
