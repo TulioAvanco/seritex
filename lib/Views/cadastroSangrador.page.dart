@@ -1,25 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
-import 'package:seritex/Models/usuario.model.dart';
+import 'package:seritex/Models/sangrador.model.dart';
 
-class Cadastro extends StatefulWidget {
+class CadastroSangrador extends StatefulWidget {
   @override
-  _CadastroState createState() => _CadastroState();
+  _CadastroSangradorState createState() => _CadastroSangradorState();
 }
 
-class _CadastroState extends State<Cadastro> {
-  final _formKey2 = GlobalKey<FormState>();
+class _CadastroSangradorState extends State<CadastroSangrador> {
+  final _formKey3 = GlobalKey<FormState>();
   var _passwordobscure = true;
-  final _novoUser = new Usuario();
+  final _sangrador = Sangrador();
 
   cadastrese(BuildContext context) async {
-    _formKey2.currentState.save();
-    if (_formKey2.currentState.validate()) {
+    _formKey3.currentState.save();
+    User pess = FirebaseAuth.instance.currentUser;
+    _sangrador.idProprietario = pess.uid;
+    if (_formKey3.currentState.validate()) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _novoUser.email, password: _novoUser.senha);
-        CadastroController().addUser(_novoUser);
+            email: _sangrador.email, password: _sangrador.senha);
+        CadastroController().addUser(_sangrador);
         Navigator.of(context).pop(true);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -70,7 +72,7 @@ class _CadastroState extends State<Cadastro> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: Text('Cadastro'),
+          title: Text('Novo Sangrador'),
           centerTitle: true,
           backgroundColor: Color.fromARGB(255, 25, 118, 70),
         ),
@@ -78,7 +80,7 @@ class _CadastroState extends State<Cadastro> {
           child: Container(
               margin: EdgeInsets.all(60),
               child: Form(
-                key: _formKey2,
+                key: _formKey3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,7 +99,7 @@ class _CadastroState extends State<Cadastro> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => _novoUser.nome = value,
+                      onSaved: (value) => _sangrador.nome = value,
                       validator: (value) =>
                           value.isEmpty ? "Campo Obrigatório" : null,
                     ),
@@ -116,7 +118,7 @@ class _CadastroState extends State<Cadastro> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => _novoUser.email = value,
+                      onSaved: (value) => _sangrador.email = value,
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Campo Obrigatório';
@@ -157,7 +159,7 @@ class _CadastroState extends State<Cadastro> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => _novoUser.senha = value,
+                      onSaved: (value) => _sangrador.senha = value,
                       validator: (value) =>
                           value.isEmpty ? "Campo Obrigatório" : null,
                     ),
@@ -194,9 +196,43 @@ class _CadastroState extends State<Cadastro> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => _novoUser.telefone = value,
+                      onSaved: (value) => _sangrador.telefone = value,
                       validator: (value) =>
                           value.isEmpty ? "Campo Obrigatório" : null,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    Text(
+                      'Numero de Tabelas',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 25, 118, 70)),
+                    ),
+                    DropdownButton<String>(
+                      value: _sangrador.tabelas,
+                      icon: const Icon(
+                        Icons.arrow_downward,
+                        color: Color.fromARGB(255, 25, 118, 70),
+                      ),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 25, 118, 70)),
+                      underline: Container(
+                        height: 2,
+                        color: Color.fromARGB(255, 25, 118, 70),
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _sangrador.tabelas = newValue;
+                        });
+                      },
+                      items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     ElevatedButton(
@@ -207,7 +243,7 @@ class _CadastroState extends State<Cadastro> {
                           backgroundColor: MaterialStateProperty.all(
                               Color.fromARGB(255, 25, 118, 70)),
                           padding:
-                              MaterialStateProperty.all(EdgeInsets.all(16))),
+                              MaterialStateProperty.all(EdgeInsets.all(18))),
                     ),
                   ],
                 ),

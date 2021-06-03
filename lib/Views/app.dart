@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seritex/Views/addCorte.dart';
 import 'package:seritex/Views/cadastro.page.dart';
+import 'package:seritex/Views/cadastroSangrador.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
 import 'package:seritex/Views/homeAdmin.page.dart';
 import 'package:seritex/Views/login.page.dart';
@@ -16,8 +17,9 @@ class App extends StatelessWidget {
         '/homeadm': (context) => HomeAdm(),
         '/cotacao': (context) => Cotacao(),
         '/addCorte': (context) => AddCorte(),
+        '/addSangrador': (context) => CadastroSangrador()
       },
-      initialRoute: '/addCorte',
+      initialRoute: '/addSangrador',
     );
   }
 }

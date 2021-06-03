@@ -50,6 +50,7 @@ class MenuDrawer extends StatelessWidget {
               'Adicionar Sangrador',
               style: TextStyle(fontSize: 18),
             ),
+            onTap: () => Navigator.of(context).pushNamed('/addSangrador'),
             leading: Icon(Icons.person_add),
           ),
           ListTile(

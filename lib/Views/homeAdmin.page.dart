@@ -59,7 +59,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.calendar_today,
+                      Icons.calendar_today_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],
@@ -84,7 +84,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.monitor_weight,
+                      Icons.monitor_weight_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],
@@ -109,7 +109,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.price_change,
+                      Icons.price_change_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],
@@ -153,7 +153,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.next_plan,
+                      Icons.next_week_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],
@@ -161,7 +161,7 @@ class _HomeAdmState extends State<HomeAdm> {
                 Column(
                   children: [
                     Text(
-                      'Kilos',
+                      'Cortes',
                       style: TextStyle(fontSize: 18),
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
@@ -178,7 +178,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.monitor_weight,
+                      Icons.park_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],
@@ -203,7 +203,7 @@ class _HomeAdmState extends State<HomeAdm> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Icon(
-                      Icons.insights,
+                      Icons.insights_outlined,
                       color: Color.fromARGB(255, 25, 118, 70),
                     )
                   ],

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:seritex/Views/menu.drawer.dart';
+import 'package:seritex/Controller/cadastro.controller.dart';
+import 'package:seritex/Models/usuario.model.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 class Login extends StatefulWidget {
   @override
@@ -9,9 +12,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
+  final _login = new Usuario();
+
   var _passwordobscure = true;
 
-  login() {}
+  login(BuildContext context) {
+    _formKey.currentState.save();
+    CadastroController().signIn(_login, context);
+  }
 
   Future<dynamic> cadastese(BuildContext context) async {
     await Navigator.of(context).pushNamed('/cadastro');
@@ -44,13 +52,14 @@ class _LoginState extends State<Login> {
                         ),
                         labelStyle: (TextStyle(
                             color: Color.fromARGB(255, 25, 118, 70))),
-                        labelText: 'Login',
+                        labelText: 'E-mail',
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 25, 118, 70))),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 25, 118, 70)))),
+                    onSaved: (value) => _login.email = value,
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   TextFormField(
@@ -79,10 +88,11 @@ class _LoginState extends State<Login> {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 25, 118, 70)))),
+                    onSaved: (value) => _login.senha = value,
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   ElevatedButton(
-                    onPressed: login,
+                    onPressed: () => login(context),
                     child: Text(
                       'Entrar',
                       style: TextStyle(fontSize: 23),
