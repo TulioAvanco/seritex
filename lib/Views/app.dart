@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         '/cotacao': (context) => Cotacao(),
         '/addCorte': (context) => AddCorte(),
       },
-      initialRoute: '/homeadm',
+      initialRoute: '/addCorte',
     );
   }
 }

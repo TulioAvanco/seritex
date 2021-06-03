@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
@@ -12,12 +13,54 @@ class _CadastroState extends State<Cadastro> {
   var _passwordobscure = true;
   final _novoUser = new Usuario();
 
-  cadastrese(BuildContext context) {
+  cadastrese(BuildContext context) async {
     _formKey2.currentState.save();
     if (_formKey2.currentState.validate()) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: _novoUser.email, password: _novoUser.senha);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'A senha fornecida é muito fraca.',
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: const Duration(milliseconds: 1500),
+            width: 280.0,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+          ));
+        } else if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'O e-mail já está em uso.',
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: const Duration(milliseconds: 1500),
+            width: 280.0,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+          ));
+        }
+      } catch (e) {
+        print(e);
+      }
+
       _formKey2.currentState.save();
-      CadastroController().addUser(_novoUser);
-      Navigator.of(context).pop(true);
     }
   }
 
@@ -42,7 +85,6 @@ class _CadastroState extends State<Cadastro> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextFormField(
-                      autofocus: true,
                       cursorColor: Color.fromARGB(255, 25, 118, 70),
                       decoration: InputDecoration(
                           icon: Icon(
@@ -92,9 +134,8 @@ class _CadastroState extends State<Cadastro> {
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
                       onSaved: (value) => _novoUser.senha = value,
-                      validator: (value) => value != confirmaSenha
-                          ? "Senhas não coicidem! "
-                          : null,
+                      validator: (value) =>
+                          value.isEmpty ? "Campo Obrigatório" : null,
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
@@ -149,8 +190,16 @@ class _CadastroState extends State<Cadastro> {
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
                       onSaved: (value) => _novoUser.email = value,
-                      validator: (value) =>
-                          value.isEmpty ? "Campo Obrigatório" : null,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        }
+                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]+[a-z]")
+                            .hasMatch(value)) {
+                          return 'Preecha um E-mail Válido';
+                        }
+                        return null;
+                      },
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(

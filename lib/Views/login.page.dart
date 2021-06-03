@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seritex/Views/menu.drawer.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -35,7 +36,6 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   TextFormField(
-                    autofocus: true,
                     cursorColor: Color.fromARGB(255, 25, 118, 70),
                     decoration: InputDecoration(
                         suffixIcon: Icon(

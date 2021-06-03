@@ -1,5 +1,5 @@
 class Usuario {
-  String idPessoa;
+  String idUser;
   String senha;
   String nome;
   String login;
@@ -8,7 +8,7 @@ class Usuario {
   int status;
 
   Usuario(
-      {this.idPessoa,
+      {this.idUser,
       this.senha,
       this.nome,
       this.email,
