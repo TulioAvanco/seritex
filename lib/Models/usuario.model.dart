@@ -1,5 +1,3 @@
-import 'package:seritex/Models/sangrador.model.dart';
-
 class Usuario {
   String idUser;
   String senha;

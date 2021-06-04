@@ -19,7 +19,7 @@ class App extends StatelessWidget {
         '/addCorte': (context) => AddCorte(),
         '/addSangrador': (context) => CadastroSangrador()
       },
-      initialRoute: '/addSangrador',
+      initialRoute: '/',
     );
   }
 }

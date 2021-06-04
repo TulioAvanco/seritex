@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seritex/Models/sangrador.model.dart';
 import 'package:seritex/Models/usuario.model.dart';
 
 class CadastroController {
@@ -17,10 +18,39 @@ class CadastroController {
     });
   }
 
+  void addSangrador(Sangrador user) {
+    FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(user.idProprietario)
+        .collection('Sangrador')
+        .doc(pess.uid)
+        .set({
+      'senha': user.senha,
+      'nome': user.nome,
+      'email': user.email,
+      'telefone': user.telefone,
+      'status': user.status,
+      'uid': pess.uid,
+      'uidProprietario': user.idProprietario,
+      'tabela': user.tabelas
+    });
+  }
+
   signIn(Usuario login, BuildContext context) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: login.email, password: login.senha);
+      User pess = FirebaseAuth.instance.currentUser;
+      FirebaseFirestore.instance
+          .collection('usuarios')
+          .where('uid', isEqualTo: pess.uid)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          print(doc["nome"]);
+        });
+      });
+
       Navigator.popAndPushNamed(context, '/homeadm');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

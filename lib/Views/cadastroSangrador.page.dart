@@ -21,7 +21,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _sangrador.email, password: _sangrador.senha);
-        CadastroController().addUser(_sangrador);
+        CadastroController().addSangrador(_sangrador);
         Navigator.of(context).pop(true);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
