@@ -1,7 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:seritex/Views/menu.drawer.dart';
+import 'package:seritex/Views/menu.drawer.Sangrador.dart';
 
 class AddCorte extends StatefulWidget {
   @override
@@ -31,7 +30,7 @@ class _AddCorteState extends State<AddCorte> {
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 25, 118, 70),
       ),
-      drawer: MenuDrawer(),
+      drawer: MenuDrawerSangrador(),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

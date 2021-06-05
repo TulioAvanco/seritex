@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:seritex/Models/sangrador.model.dart';
 import 'package:seritex/Models/usuario.model.dart';
 
+User uidLogado;
+String verifica;
+
 class CadastroController {
   User pess = FirebaseAuth.instance.currentUser;
 
@@ -19,12 +22,7 @@ class CadastroController {
   }
 
   void addSangrador(Sangrador user) {
-    FirebaseFirestore.instance
-        .collection('usuarios')
-        .doc(user.idProprietario)
-        .collection('Sangrador')
-        .doc(pess.uid)
-        .set({
+    FirebaseFirestore.instance.collection('sangradores').doc(pess.uid).set({
       'senha': user.senha,
       'nome': user.nome,
       'email': user.email,
@@ -40,18 +38,22 @@ class CadastroController {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: login.email, password: login.senha);
-      User pess = FirebaseAuth.instance.currentUser;
+      User uidLogado = FirebaseAuth.instance.currentUser;
+
       FirebaseFirestore.instance
           .collection('usuarios')
-          .where('uid', isEqualTo: pess.uid)
+          .where('uid', isEqualTo: uidLogado.uid)
           .get()
           .then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
-          print(doc["nome"]);
+          verifica = (doc['uid']);
         });
+        if (verifica == uidLogado.uid) {
+          Navigator.popAndPushNamed(context, '/homeadm');
+        } else {
+          Navigator.popAndPushNamed(context, '/homeSangrador');
+        }
       });
-
-      Navigator.popAndPushNamed(context, '/homeadm');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -89,5 +91,11 @@ class CadastroController {
         ));
       }
     }
+  }
+
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+    uidLogado = null;
+    print(uidLogado);
   }
 }

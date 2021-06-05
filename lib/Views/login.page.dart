@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 
-class MenuDrawer extends StatelessWidget {
+class MenuDrawerSangrador extends StatelessWidget {
   sair(BuildContext context) {
     CadastroController().logout();
+
     Navigator.of(context).pushNamed('/');
   }
 
@@ -39,25 +40,10 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'Administração',
-              style: TextStyle(fontSize: 18),
-            ),
-            leading: Icon(Icons.assignment),
-          ),
-          ListTile(
-            title: Text(
               'Cotação da Borracha',
               style: TextStyle(fontSize: 18),
             ),
             leading: Icon(Icons.bar_chart),
-          ),
-          ListTile(
-            title: Text(
-              'Adicionar Sangrador',
-              style: TextStyle(fontSize: 18),
-            ),
-            onTap: () => Navigator.of(context).pushNamed('/addSangrador'),
-            leading: Icon(Icons.person_add),
           ),
           ListTile(
             title: Text(

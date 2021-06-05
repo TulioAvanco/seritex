@@ -4,6 +4,8 @@ import 'package:seritex/Views/cadastro.page.dart';
 import 'package:seritex/Views/cadastroSangrador.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
 import 'package:seritex/Views/homeAdmin.page.dart';
+import 'package:seritex/Views/homeSangrador.page.dart';
+
 import 'package:seritex/Views/login.page.dart';
 
 class App extends StatelessWidget {
@@ -15,6 +17,7 @@ class App extends StatelessWidget {
         '/': (context) => Login(),
         '/cadastro': (context) => Cadastro(),
         '/homeadm': (context) => HomeAdm(),
+        '/homeSangrador': (context) => HomeSangrador(),
         '/cotacao': (context) => Cotacao(),
         '/addCorte': (context) => AddCorte(),
         '/addSangrador': (context) => CadastroSangrador()
