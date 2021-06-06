@@ -12,7 +12,6 @@ class CadastroController {
 
   void addUser(Usuario user) {
     FirebaseFirestore.instance.collection('usuarios').doc(pess.uid).set({
-      'senha': user.senha,
       'nome': user.nome,
       'email': user.email,
       'telefone': user.telefone,
@@ -23,7 +22,6 @@ class CadastroController {
 
   void addSangrador(Sangrador user) {
     FirebaseFirestore.instance.collection('sangradores').doc(pess.uid).set({
-      'senha': user.senha,
       'nome': user.nome,
       'email': user.email,
       'telefone': user.telefone,
@@ -32,13 +30,20 @@ class CadastroController {
       'uidProprietario': user.idProprietario,
       'tabela': user.tabelas
     });
+    print(pess.uid);
+    FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(uidLogado.uid)
+        .collection('sangradores')
+        .doc(pess.uid)
+        .set({'uidSangrador': pess.uid});
   }
 
   signIn(Usuario login, BuildContext context) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: login.email, password: login.senha);
-      User uidLogado = FirebaseAuth.instance.currentUser;
+      uidLogado = FirebaseAuth.instance.currentUser;
 
       FirebaseFirestore.instance
           .collection('usuarios')
