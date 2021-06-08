@@ -21,6 +21,7 @@ class CadastroController {
   }
 
   void addSangrador(Sangrador user) {
+    print(pess.email);
     FirebaseFirestore.instance.collection('sangradores').doc(pess.uid).set({
       'nome': user.nome,
       'email': user.email,

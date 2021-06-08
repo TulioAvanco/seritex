@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
@@ -17,7 +18,9 @@ class _CadastroState extends State<Cadastro> {
     _formKey2.currentState.save();
     if (_formKey2.currentState.validate()) {
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        FirebaseApp secondaryApp = Firebase.app('SecondaryApp');
+        FirebaseAuth auth = FirebaseAuth.instanceFor(app: secondaryApp);
+        await auth.createUserWithEmailAndPassword(
             email: _novoUser.email, password: _novoUser.senha);
         CadastroController().addUser(_novoUser);
         Navigator.of(context).pop(true);

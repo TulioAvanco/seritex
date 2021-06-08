@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:seritex/Controller/addCorte.controller.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/corte.model.dart';
-import 'package:seritex/Views/menu.drawer.Sangrador.dart';
 
 class AddCorte extends StatefulWidget {
   @override
@@ -14,9 +13,9 @@ class AddCorte extends StatefulWidget {
 
 class _AddCorteState extends State<AddCorte> {
   DateTime currentDate = DateTime.now();
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
   Corte adiciona = new Corte();
   int tabela;
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
 
   List<Corte> listaCorte = [];
   Corte novoCorte = new Corte();
@@ -24,7 +23,6 @@ class _AddCorteState extends State<AddCorte> {
   @override
   void initState() {
     novoCorte.data = formatter.format(DateTime.now());
-    print(novoCorte.data);
     super.initState();
     buscaTabelas();
   }
