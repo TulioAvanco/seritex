@@ -16,7 +16,9 @@ class _LoginState extends State<Login> {
 
   login(BuildContext context) {
     _formKey.currentState.save();
-    CadastroController().signIn(_login, context);
+    if (_formKey.currentState.validate()) {
+      CadastroController().signIn(_login, context);
+    }
   }
 
   Future<dynamic> cadastese(BuildContext context) async {

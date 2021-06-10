@@ -151,7 +151,7 @@ class _AddCorteState extends State<AddCorte> {
   }
 
   addCorte(BuildContext context) {
-    AddCorteController().novoCorte(novoCorte);
+    AddCorteController().addCorte(novoCorte);
     Navigator.pop(context);
   }
 

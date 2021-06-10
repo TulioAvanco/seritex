@@ -68,6 +68,14 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
+              'Nova Entrega',
+              style: TextStyle(fontSize: 18),
+            ),
+            onTap: () => Navigator.of(context).pushNamed('/novaEntrega'),
+            leading: Icon(Icons.move_to_inbox_outlined),
+          ),
+          ListTile(
+            title: Text(
               'Perfil',
               style: TextStyle(fontSize: 18),
             ),
