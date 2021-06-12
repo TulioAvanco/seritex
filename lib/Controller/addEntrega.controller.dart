@@ -8,10 +8,24 @@ class AddEntrega {
   String data;
   String ultimaEntraga;
   DateTime novaData;
+  Entrega entregaProprietatio = new Entrega();
+  addEntrega(Entrega entrega) async {
+    int percentual;
+    this.entregaProprietatio = entrega;
 
-  addEntrega(Entrega entrega) {
-    print(entrega);
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .where('uid', isEqualTo: uidLogado.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        percentual = doc['percentual'];
+      });
+    });
+    entrega.kilos = entrega.kilos * percentual * 0.01;
+    entregaProprietatio.kilos = entregaProprietatio.kilos * percentual * 0.01;
+
+    await FirebaseFirestore.instance
         .collection('sangradores')
         .doc(uidLogado.uid)
         .collection('entregas')
@@ -20,32 +34,32 @@ class AddEntrega {
       querySnapshot.docs.forEach((doc) {
         entrega.dataInicio = doc['dataInicio'];
       });
-      FirebaseFirestore.instance
-          .collection('sangradores')
-          .doc(uidLogado.uid)
-          .collection('entregas')
-          .doc(entrega.dataInicio)
-          .set({
-        'kilos': entrega.kilos,
-        'dataInicio': entrega.dataInicio,
-        'dataFinal': entrega.dataFinal,
-        'preco': entrega.preco,
-      });
-      this.novaData = new DateFormat('dd-MM-yyyy').parse(entrega.dataFinal);
-      print(this.novaData);
-      this.novaData.add(const Duration(days: 1));
-      this.data = this.formatter.format(this.novaData);
-      FirebaseFirestore.instance
-          .collection('sangradores')
-          .doc(uidLogado.uid)
-          .collection('entregas')
-          .doc(this.data)
-          .set({
-        'kilos': '',
-        'dataInicio': this.data,
-        'dataFinal': '',
-        'preco': '',
-      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .doc(uidLogado.uid)
+        .collection('entregas')
+        .doc(entrega.dataInicio)
+        .set({
+      'kilos': entrega.kilos,
+      'dataInicio': entrega.dataInicio,
+      'dataFinal': entrega.dataFinal,
+      'preco': entrega.preco,
+    });
+    this.novaData = new DateFormat('dd-MM-yyyy').parse(entrega.dataFinal);
+    this.novaData = this.novaData.add(Duration(days: 1));
+    this.data = this.formatter.format(this.novaData);
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .doc(uidLogado.uid)
+        .collection('entregas')
+        .doc(this.data)
+        .set({
+      'kilos': '',
+      'dataInicio': this.data,
+      'dataFinal': '',
+      'preco': '',
     });
   }
 }

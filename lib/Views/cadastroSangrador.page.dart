@@ -11,7 +11,7 @@ class CadastroSangrador extends StatefulWidget {
 class _CadastroSangradorState extends State<CadastroSangrador> {
   final _formKey3 = GlobalKey<FormState>();
   var _passwordobscure = true;
-  final _sangrador = Sangrador();
+  var _sangrador = Sangrador();
 
   cadastrese(BuildContext context) async {
     _formKey3.currentState.save();
@@ -65,8 +65,14 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
     }
   }
 
-  String confirmaSenha;
+  @override
+  void initState() {
+    super.initState();
 
+    this._sangrador.percentual = 50;
+  }
+
+  String confirmaSenha;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,7 +185,9 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => confirmaSenha = value,
+                      validator: (value) => value != _sangrador.senha
+                          ? "As senhas na coincidem"
+                          : null,
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
@@ -199,6 +207,33 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       onSaved: (value) => _sangrador.telefone = value,
                       validator: (value) =>
                           value.isEmpty ? "Campo Obrigatório" : null,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    Text(
+                      'Percentual de Divisão',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 25, 118, 70)),
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    Slider(
+                        value: _sangrador.percentual,
+                        max: 100,
+                        min: 1,
+                        divisions: 100,
+                        label: _sangrador.percentual.round().toString(),
+                        activeColor: Color.fromARGB(255, 25, 118, 70),
+                        onChanged: (double value) => {
+                              setState(() {
+                                _sangrador.percentual =
+                                    value.round().toDouble();
+                              })
+                            }),
+                    Text(
+                      _sangrador.percentual.round().toString(),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 25, 118, 70)),
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     Text(

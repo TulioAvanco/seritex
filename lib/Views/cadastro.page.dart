@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
@@ -18,9 +18,7 @@ class _CadastroState extends State<Cadastro> {
     _formKey2.currentState.save();
     if (_formKey2.currentState.validate()) {
       try {
-        FirebaseApp secondaryApp = Firebase.app('SecondaryApp');
-        FirebaseAuth auth = FirebaseAuth.instanceFor(app: secondaryApp);
-        await auth.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _novoUser.email, password: _novoUser.senha);
         CadastroController().addUser(_novoUser);
         Navigator.of(context).pop(true);
@@ -180,7 +178,9 @@ class _CadastroState extends State<Cadastro> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
-                      onSaved: (value) => confirmaSenha = value,
+                      validator: (value) => value != _novoUser.senha
+                          ? "As senhas nao coincidem"
+                          : null,
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(

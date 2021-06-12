@@ -60,6 +60,8 @@ class _LoginState extends State<Login> {
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 25, 118, 70)))),
                     onSaved: (value) => _login.email = value,
+                    validator: (value) =>
+                        value.isEmpty ? "Campo Obrigatório" : null,
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   TextFormField(
@@ -89,6 +91,8 @@ class _LoginState extends State<Login> {
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 25, 118, 70)))),
                     onSaved: (value) => _login.senha = value,
+                    validator: (value) =>
+                        value.isEmpty ? "Campo Obrigatório" : null,
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   ElevatedButton(

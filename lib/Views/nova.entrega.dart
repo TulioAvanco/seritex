@@ -4,7 +4,9 @@ import 'package:seritex/Controller/addEntrega.controller.dart';
 import 'package:seritex/Models/entrega.model.dart';
 
 class NovaEntrega extends StatefulWidget {
-  const NovaEntrega({Key key}) : super(key: key);
+  final Function callback;
+
+  const NovaEntrega(this.callback);
 
   @override
   _NovaEntregaState createState() => _NovaEntregaState();
@@ -31,7 +33,8 @@ class _NovaEntregaState extends State<NovaEntrega> {
     _formKey4.currentState.save();
     if (_formKey4.currentState.validate()) {
       AddEntrega().addEntrega(this.novaEntrega);
-      Navigator.pop(context);
+      widget.callback();
+      Navigator.of(context).pop(true);
     }
   }
 

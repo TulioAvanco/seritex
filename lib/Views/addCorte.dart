@@ -24,7 +24,6 @@ class _AddCorteState extends State<AddCorte> {
   void initState() {
     novoCorte.data = formatter.format(DateTime.now());
     super.initState();
-    buscaTabelas();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -143,7 +142,9 @@ class _AddCorteState extends State<AddCorte> {
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 25, 118, 70),
+            ),
           );
         }
       },

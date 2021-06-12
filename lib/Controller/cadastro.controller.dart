@@ -28,6 +28,7 @@ class CadastroController {
       'status': user.status,
       'uid': pess.uid,
       'uidProprietario': user.idProprietario,
+      'percentual': user.percentual,
       'tabela': user.tabelas
     });
     FirebaseFirestore.instance

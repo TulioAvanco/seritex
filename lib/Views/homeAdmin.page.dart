@@ -20,7 +20,7 @@ class _HomeAdmState extends State<HomeAdm> {
         backgroundColor: Color.fromARGB(255, 25, 118, 70),
         centerTitle: true,
       ),
-      drawer: MenuDrawer(),
+      endDrawer: MenuDrawer(),
       body: ListView(
         children: [
           Padding(padding: EdgeInsets.only(top: 28)),
