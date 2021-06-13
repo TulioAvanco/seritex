@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Views/menu.drawer.dart';
 
 class HomeAdm extends StatefulWidget {
@@ -21,209 +23,142 @@ class _HomeAdmState extends State<HomeAdm> {
         centerTitle: true,
       ),
       endDrawer: MenuDrawer(),
-      body: ListView(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 28)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Ultima Entrega',
-                style: TextStyle(
-                    fontSize: 20, color: Color.fromARGB(255, 25, 118, 70)),
-              )
-            ],
-          ),
-          Padding(padding: EdgeInsets.only(top: 32)),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('propriedades')
+              .doc(uidLogado.uid)
+              .snapshots(),
+          builder: (BuildContext context, snapshot) {
+            var dados = snapshot.data;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 25, 118, 70),
+                  ),
+                ),
+              );
+            }
+            if (dados == null) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 25, 118, 70),
+                  ),
+                ),
+              );
+            }
+
+            return Center(
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      'Data',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
+                      width: 200,
+                      alignment: Alignment.center,
+                      child: Center(
+                        child: Image.asset('assets/images/SeriTex_logo.png',
+                            fit: BoxFit.fill),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.calendar_today_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
+                    Card(
+                      elevation: 5,
+                      child: ListTile(
+                        title: Center(
+                          child: Text(
+                            'Propriedade',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ),
+                        ),
+                        subtitle: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.house_outlined,
+                              color: Color.fromARGB(255, 25, 118, 70),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Text(
+                              dados['propriedade'],
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 25, 118, 70)),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Icon(Icons.house_outlined,
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ],
+                        )),
+                      ),
+                    ),
+                    Card(
+                      elevation: 5,
+                      child: ListTile(
+                        title: Center(
+                          child: Text(
+                            'Alqueires',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ),
+                        ),
+                        subtitle: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.texture_outlined,
+                              color: Color.fromARGB(255, 25, 118, 70),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Text(
+                              dados['qtdAlqueires'].toString(),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 25, 118, 70)),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Icon(Icons.texture_outlined,
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ],
+                        )),
+                      ),
+                    ),
+                    Card(
+                      elevation: 5,
+                      child: ListTile(
+                        title: Center(
+                          child: Text(
+                            'Árvores',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ),
+                        ),
+                        subtitle: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.park_outlined,
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Text(
+                              dados['qtdArvores'].toString(),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 25, 118, 70)),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Icon(Icons.park_outlined,
+                                color: Color.fromARGB(255, 25, 118, 70)),
+                          ],
+                        )),
+                      ),
+                    ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'kilos',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.monitor_weight_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      'Preço',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.price_change_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 28)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Proxima Entrega',
-                style: TextStyle(
-                    fontSize: 20, color: Color.fromARGB(255, 25, 118, 70)),
-              )
-            ],
-          ),
-          Padding(padding: EdgeInsets.only(top: 32)),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      'Dias',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.next_week_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      'Cortes',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.park_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      'Previsão',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Text('teste'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 25, 118, 70)),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Icon(
-                      Icons.insights_outlined,
-                      color: Color.fromARGB(255, 25, 118, 70),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 50)),
-          Container(
-            margin: EdgeInsets.only(left: 50, right: 50),
-            child: ElevatedButton(
-              onPressed: () => novoCorte(context),
-              child: Text('Novo Corte'),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 25, 118, 70))),
-            ),
-          )
-        ],
-      ),
+              ),
+            );
+          }),
     );
   }
 }

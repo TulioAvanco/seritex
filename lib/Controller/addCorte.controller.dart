@@ -6,14 +6,16 @@ import 'package:seritex/Models/entrega.model.dart';
 
 class AddCorteController {
   String tabela;
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
   String data;
   Entrega entrega = new Entrega();
   String ultimaEntraga;
 
+  DateTime formata;
   Future<String> addCorte(Corte novoCorte) async {
     this.data = formatter.format(DateTime.now());
-
+    this.formata = new DateFormat('dd-MM-yyyy').parse(novoCorte.data);
+    novoCorte.data = formatter.format(this.formata);
     await FirebaseFirestore.instance
         .collection('sangradores')
         .doc(uidLogado.uid)

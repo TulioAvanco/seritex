@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
+import 'package:seritex/Models/propriedade.model.dart';
 import 'package:seritex/Models/usuario.model.dart';
 
 class Cadastro extends StatefulWidget {
@@ -13,14 +14,14 @@ class _CadastroState extends State<Cadastro> {
   final _formKey2 = GlobalKey<FormState>();
   var _passwordobscure = true;
   final _novoUser = new Usuario();
-
+  final _novaPropriedade = new Propridade();
   cadastrese(BuildContext context) async {
     _formKey2.currentState.save();
     if (_formKey2.currentState.validate()) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _novoUser.email, password: _novoUser.senha);
-        CadastroController().addUser(_novoUser);
+        CadastroController().addUser(_novoUser, _novaPropriedade);
         Navigator.of(context).pop(true);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -89,7 +90,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.account_circle_rounded,
+                          icon: Icon(Icons.account_circle_outlined,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Nome',
                           border: OutlineInputBorder(
@@ -108,7 +109,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.mail,
+                          icon: Icon(Icons.mail_outline_outlined,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'E-mail',
                           border: OutlineInputBorder(
@@ -136,7 +137,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock,
+                          icon: Icon(Icons.lock_outline,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -169,7 +170,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock,
+                          icon: Icon(Icons.lock_outline,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Confirmar Senha',
                           border: OutlineInputBorder(
@@ -188,7 +189,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.phone,
+                          icon: Icon(Icons.phone_android_outlined,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Telefone',
                           border: OutlineInputBorder(
@@ -198,6 +199,65 @@ class _CadastroState extends State<Cadastro> {
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 25, 118, 70)))),
                       onSaved: (value) => _novoUser.telefone = value,
+                      validator: (value) =>
+                          value.isEmpty ? "Campo Obrigatório" : null,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    TextFormField(
+                      cursorColor: Color.fromARGB(255, 25, 118, 70),
+                      decoration: InputDecoration(
+                          labelStyle: (TextStyle(
+                              color: Color.fromARGB(255, 25, 118, 70))),
+                          icon: Icon(Icons.house_outlined,
+                              color: Color.fromARGB(255, 25, 118, 70)),
+                          labelText: 'Nome da Propriedade',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70)))),
+                      onSaved: (value) => _novaPropriedade.propriedade = value,
+                      validator: (value) =>
+                          value.isEmpty ? "Campo Obrigatório" : null,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    TextFormField(
+                      cursorColor: Color.fromARGB(255, 25, 118, 70),
+                      decoration: InputDecoration(
+                          labelStyle: (TextStyle(
+                              color: Color.fromARGB(255, 25, 118, 70))),
+                          icon: Icon(Icons.texture_outlined,
+                              color: Color.fromARGB(255, 25, 118, 70)),
+                          labelText: 'Alqueires',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70)))),
+                      onSaved: (value) =>
+                          _novaPropriedade.qtdAlqueires = int.parse(value),
+                      validator: (value) =>
+                          value.isEmpty ? "Campo Obrigatório" : null,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 16)),
+                    TextFormField(
+                      cursorColor: Color.fromARGB(255, 25, 118, 70),
+                      decoration: InputDecoration(
+                          labelStyle: (TextStyle(
+                              color: Color.fromARGB(255, 25, 118, 70))),
+                          icon: Icon(Icons.park_outlined,
+                              color: Color.fromARGB(255, 25, 118, 70)),
+                          labelText: 'Quantidades de Árvores',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 25, 118, 70)))),
+                      onSaved: (value) =>
+                          _novaPropriedade.qtdtArvores = int.parse(value),
                       validator: (value) =>
                           value.isEmpty ? "Campo Obrigatório" : null,
                     ),

@@ -4,15 +4,23 @@ import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/entrega.model.dart';
 
 class AddEntrega {
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
   String data;
   String ultimaEntraga;
   DateTime novaData;
+  DateTime formata;
   Entrega entregaProprietatio = new Entrega();
   addEntrega(Entrega entrega) async {
     int percentual;
-    this.entregaProprietatio = entrega;
+    print(entrega.dataFinal);
+    this.formata = new DateFormat('dd-MM-yyyy').parse(entrega.dataFinal);
+    entrega.dataFinal = formatter.format(this.formata).toString();
 
+    this.entregaProprietatio.dataFinal = entrega.dataFinal.toString();
+    this.entregaProprietatio.dataInicio = entrega.dataInicio.toString();
+    this.entregaProprietatio.kilos = entrega.kilos.toDouble();
+    this.entregaProprietatio.preco = entrega.preco.toDouble();
+    print(entrega.dataFinal);
     await FirebaseFirestore.instance
         .collection('sangradores')
         .where('uid', isEqualTo: uidLogado.uid)
@@ -35,7 +43,6 @@ class AddEntrega {
         entrega.dataInicio = doc['dataInicio'];
       });
     });
-
     await FirebaseFirestore.instance
         .collection('sangradores')
         .doc(uidLogado.uid)
@@ -47,7 +54,7 @@ class AddEntrega {
       'dataFinal': entrega.dataFinal,
       'preco': entrega.preco,
     });
-    this.novaData = new DateFormat('dd-MM-yyyy').parse(entrega.dataFinal);
+    this.novaData = new DateFormat('yyyy-MM-dd').parse(entrega.dataFinal);
     this.novaData = this.novaData.add(Duration(days: 1));
     this.data = this.formatter.format(this.novaData);
     await FirebaseFirestore.instance

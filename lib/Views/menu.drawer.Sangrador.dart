@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
-import 'package:seritex/Views/homeSangrador.page.dart';
-import 'package:strings/strings.dart';
 
 // ignore: must_be_immutable
 class MenuDrawerSangrador extends StatefulWidget {
@@ -20,33 +18,14 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
 
   Usuario sangrador = new Usuario();
 
-  Future<String> pegarnome() async {
-    await FirebaseFirestore.instance
-        .collection('sangradores')
-        .where('uid', isEqualTo: uidLogado.uid)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        this.sangrador.nome = doc['nome'];
-      });
-    });
-
-    this.sangrador.nome = capitalize(this.sangrador.nome);
-
-    return 'ok';
-  }
-
   @override
   Widget build(BuildContext context) {
-    print('build do drawer');
-
-    Function callBack = () {
-      HomeSangrador().createState().read2();
-    };
-
-    return FutureBuilder(
-      future: pegarnome(),
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('sangradores')
+          .doc(uidLogado.uid)
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Drawer(
             child: Column(
@@ -70,7 +49,7 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 8)),
-                        Text(this.sangrador.nome,
+                        Text(snapshot.data['nome'],
                             style: TextStyle(color: Colors.white, fontSize: 18))
                       ],
                     ),
@@ -95,9 +74,16 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                     'Nova Entrega',
                     style: TextStyle(fontSize: 18),
                   ),
-                  onTap: () => HomeSangrador()
-                      .createState()
-                      .novaEntrega(context, callBack),
+                  onTap: () => Navigator.of(context).pushNamed('/novaEntrega'),
+                  leading: Icon(Icons.move_to_inbox_outlined),
+                ),
+                ListTile(
+                  title: Text(
+                    'Ultimas Entregas',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onTap: () => Navigator.of(context)
+                      .pushNamed('/ultimaEntregaSangrador'),
                   leading: Icon(Icons.move_to_inbox_outlined),
                 ),
                 ListTile(

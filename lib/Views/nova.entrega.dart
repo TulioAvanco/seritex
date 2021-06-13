@@ -4,10 +4,6 @@ import 'package:seritex/Controller/addEntrega.controller.dart';
 import 'package:seritex/Models/entrega.model.dart';
 
 class NovaEntrega extends StatefulWidget {
-  final Function callback;
-
-  const NovaEntrega(this.callback);
-
   @override
   _NovaEntregaState createState() => _NovaEntregaState();
 }
@@ -15,6 +11,7 @@ class NovaEntrega extends StatefulWidget {
 class _NovaEntregaState extends State<NovaEntrega> {
   final _formKey4 = GlobalKey<FormState>();
   DateTime currentDate = DateTime.now();
+
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   Entrega novaEntrega = new Entrega();
   Future<void> _selectDate(BuildContext context) async {
@@ -33,7 +30,6 @@ class _NovaEntregaState extends State<NovaEntrega> {
     _formKey4.currentState.save();
     if (_formKey4.currentState.validate()) {
       AddEntrega().addEntrega(this.novaEntrega);
-      widget.callback();
       Navigator.of(context).pop(true);
     }
   }

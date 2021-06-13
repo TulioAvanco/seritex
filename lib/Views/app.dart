@@ -8,6 +8,8 @@ import 'package:seritex/Views/homeAdmin.page.dart';
 import 'package:seritex/Views/homeSangrador.page.dart';
 
 import 'package:seritex/Views/login.page.dart';
+import 'package:seritex/Views/nova.entrega.dart';
+import 'package:seritex/Views/ultimaentrega.dart';
 
 class App extends StatelessWidget {
   @override
@@ -27,7 +29,8 @@ class App extends StatelessWidget {
         '/cotacao': (context) => Cotacao(),
         '/addCorte': (context) => AddCorte(),
         '/addSangrador': (context) => CadastroSangrador(),
-        // '/novaEntrega': (context) => NovaEntrega()
+        '/novaEntrega': (context) => NovaEntrega(),
+        '/ultimaEntregaSangrador': (context) => UltimaEntrega()
       },
       initialRoute: '/',
     );

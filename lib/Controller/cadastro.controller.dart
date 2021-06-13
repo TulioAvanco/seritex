@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seritex/Models/propriedade.model.dart';
 import 'package:seritex/Models/sangrador.model.dart';
 import 'package:seritex/Models/usuario.model.dart';
 
@@ -10,12 +11,21 @@ String verifica;
 class CadastroController {
   User pess = FirebaseAuth.instance.currentUser;
 
-  void addUser(Usuario user) {
-    FirebaseFirestore.instance.collection('usuarios').doc(pess.uid).set({
+  void addUser(Usuario user, Propridade propridade) async {
+    await FirebaseFirestore.instance.collection('usuarios').doc(pess.uid).set({
       'nome': user.nome,
       'email': user.email,
       'telefone': user.telefone,
       'status': user.status,
+      'uid': pess.uid
+    });
+    await FirebaseFirestore.instance
+        .collection('propriedades')
+        .doc(pess.uid)
+        .set({
+      'propriedade': propridade.propriedade,
+      'qtdAlqueires': propridade.qtdAlqueires,
+      'qtdArvores': propridade.qtdtArvores,
       'uid': pess.uid
     });
   }
@@ -45,7 +55,7 @@ class CadastroController {
           email: login.email, password: login.senha);
       uidLogado = FirebaseAuth.instance.currentUser;
 
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('usuarios')
           .where('uid', isEqualTo: uidLogado.uid)
           .get()
