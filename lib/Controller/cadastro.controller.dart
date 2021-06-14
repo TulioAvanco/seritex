@@ -30,6 +30,26 @@ class CadastroController {
     });
   }
 
+  void editaUser(Usuario user) async {
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(uidLogado.uid)
+        .update({
+      'nome': user.nome,
+      'telefone': user.telefone,
+    });
+  }
+
+  void editaSangrador(Sangrador user) async {
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .doc(uidLogado.uid)
+        .update({
+      'nome': user.nome,
+      'telefone': user.telefone,
+    });
+  }
+
   void addSangrador(Sangrador user) {
     FirebaseFirestore.instance.collection('sangradores').doc(pess.uid).set({
       'nome': user.nome,

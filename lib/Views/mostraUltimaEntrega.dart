@@ -29,7 +29,6 @@ class _MostraEntregaState extends State<MostraEntrega> {
               .doc(widget.entrega)
               .snapshots(),
           builder: (BuildContext context, snapshot) {
-            var dados = snapshot.data;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 child: Center(
@@ -39,6 +38,16 @@ class _MostraEntregaState extends State<MostraEntrega> {
                 ),
               );
             }
+            if (!snapshot.hasData) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 25, 118, 70),
+                  ),
+                ),
+              );
+            }
+            var dados = snapshot.data;
 
             return StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -49,7 +58,6 @@ class _MostraEntregaState extends State<MostraEntrega> {
                     .collection('cortes')
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot2) {
-                  var dados2 = snapshot2.data.docs;
                   if (snapshot2.connectionState == ConnectionState.waiting) {
                     return Container(
                       child: Center(
@@ -59,7 +67,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                       ),
                     );
                   }
-                  if (dados2.isEmpty) {
+                  if (!snapshot2.hasData) {
                     return Container(
                       child: Center(
                         child: CircularProgressIndicator(
@@ -68,6 +76,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                       ),
                     );
                   }
+                  var dados2 = snapshot2.data.docs;
                   return ListView(children: [
                     Padding(padding: EdgeInsets.only(top: 28)),
                     Row(
@@ -84,10 +93,9 @@ class _MostraEntregaState extends State<MostraEntrega> {
                     Padding(padding: EdgeInsets.only(top: 32)),
                     Container(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Data',
@@ -96,7 +104,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                               Padding(padding: EdgeInsets.only(top: 16)),
                               Container(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(40.0),
+                                  padding: const EdgeInsets.all(30.0),
                                   child: Text(
                                     DateFormat("dd/MM/yyyy").format(
                                       DateFormat('yyyy-MM-dd').parse(
@@ -128,8 +136,10 @@ class _MostraEntregaState extends State<MostraEntrega> {
                               Padding(padding: EdgeInsets.only(top: 16)),
                               Container(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(40.0),
-                                  child: Text(dados['kilos'].toString()),
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: Text(
+                                      double.parse(dados['kilos'].toString())
+                                          .toStringAsFixed(2)),
                                 ),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -154,8 +164,9 @@ class _MostraEntregaState extends State<MostraEntrega> {
                               Padding(padding: EdgeInsets.only(top: 16)),
                               Container(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(40.0),
-                                  child: Text(dados['preco'].toString()),
+                                  padding: const EdgeInsets.all(30.0),
+                                  child:
+                                      Text('R\$' + dados['preco'].toString()),
                                 ),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -179,7 +190,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Cortes',
+                          'Cortes: ' + dados2.length.toString(),
                           style: TextStyle(
                               fontSize: 20,
                               color: Color.fromARGB(255, 25, 118, 70)),
@@ -191,7 +202,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: dados2.length - 1,
+                        itemCount: dados2.length,
                         itemBuilder: (context, index) {
                           return Card(
                               elevation: 5,

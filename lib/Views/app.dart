@@ -9,7 +9,11 @@ import 'package:seritex/Views/homeSangrador.page.dart';
 
 import 'package:seritex/Views/login.page.dart';
 import 'package:seritex/Views/nova.entrega.dart';
+import 'package:seritex/Views/perfilUsuario.dart';
+import 'package:seritex/Views/perflSangrador.dart';
+import 'package:seritex/Views/totalentrega.dart';
 import 'package:seritex/Views/ultimaentrega.dart';
+import 'package:seritex/Views/ultimaentregaUsuario.dart';
 
 class App extends StatelessWidget {
   @override
@@ -30,7 +34,11 @@ class App extends StatelessWidget {
         '/addCorte': (context) => AddCorte(),
         '/addSangrador': (context) => CadastroSangrador(),
         '/novaEntrega': (context) => NovaEntrega(),
-        '/ultimaEntregaSangrador': (context) => UltimaEntrega()
+        '/ultimaEntregaSangrador': (context) => UltimaEntrega(),
+        '/ultimaEntregaUsuario': (context) => UltimaEntregaUsuario(),
+        '/totalEntregaUsuario': (context) => TotalEntregaUsuario(),
+        '/perfilUsuario': (context) => PerfilUsuario(),
+        '/perfilSangrador': (context) => PerfilSangrador()
       },
       initialRoute: '/',
     );

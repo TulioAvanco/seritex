@@ -2,20 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
-import 'package:seritex/Views/mostraUltimaEntrega.dart';
 
-class UltimaEntrega extends StatefulWidget {
-  const UltimaEntrega({Key key}) : super(key: key);
+import 'package:seritex/Views/totalentrega.dart';
+
+class UltimaEntregaUsuario extends StatefulWidget {
+  const UltimaEntregaUsuario({Key key}) : super(key: key);
 
   @override
-  _UltimaEntregaState createState() => _UltimaEntregaState();
+  _UltimaEntregaUsuarioState createState() => _UltimaEntregaUsuarioState();
 }
 
-class _UltimaEntregaState extends State<UltimaEntrega> {
-  enviaEntrega(String dados) {
+class _UltimaEntregaUsuarioState extends State<UltimaEntregaUsuario> {
+  enviaData(String dados) {
     var rota = new MaterialPageRoute(
-        builder: (BuildContext context) => MostraEntrega(
-              entrega: dados,
+        builder: (BuildContext context) => TotalEntregaUsuario(
+              data: dados,
             ));
     Navigator.of(context).push(rota);
   }
@@ -30,11 +31,12 @@ class _UltimaEntregaState extends State<UltimaEntrega> {
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('sangradores')
+              .collection('usuarios')
               .doc(uidLogado.uid)
               .collection('entregas')
               .snapshots(),
-          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<Map<dynamic, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 child: Center(
@@ -56,12 +58,12 @@ class _UltimaEntregaState extends State<UltimaEntrega> {
             var dados = snapshot.data.docs;
             return Container(
               child: ListView.builder(
-                itemCount: dados.length - 1,
+                itemCount: dados.length,
                 itemBuilder: (context, index) {
                   return Card(
                       elevation: 5,
                       child: InkWell(
-                        onTap: () => enviaEntrega(dados[index]['dataInicio']),
+                        onTap: () => enviaData(dados[index]['dataFinal']),
                         child: ListTile(
                           title: Center(
                             child: Text(

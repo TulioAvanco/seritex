@@ -10,8 +10,9 @@ class AddEntrega {
   DateTime novaData;
   DateTime formata;
   Entrega entregaProprietatio = new Entrega();
+  String uidProprietario;
   addEntrega(Entrega entrega) async {
-    int percentual;
+    double percentual;
     print(entrega.dataFinal);
     this.formata = new DateFormat('dd-MM-yyyy').parse(entrega.dataFinal);
     entrega.dataFinal = formatter.format(this.formata).toString();
@@ -27,11 +28,12 @@ class AddEntrega {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        percentual = doc['percentual'];
+        percentual = double.parse(doc['percentual'].toString());
       });
     });
     entrega.kilos = entrega.kilos * percentual * 0.01;
-    entregaProprietatio.kilos = entregaProprietatio.kilos * percentual * 0.01;
+    entregaProprietatio.kilos =
+        entregaProprietatio.kilos * (100 - percentual) * 0.01;
 
     await FirebaseFirestore.instance
         .collection('sangradores')
@@ -42,6 +44,7 @@ class AddEntrega {
       querySnapshot.docs.forEach((doc) {
         entrega.dataInicio = doc['dataInicio'];
       });
+      this.entregaProprietatio.dataInicio = entrega.dataInicio.toString();
     });
     await FirebaseFirestore.instance
         .collection('sangradores')
@@ -67,6 +70,39 @@ class AddEntrega {
       'dataInicio': this.data,
       'dataFinal': '',
       'preco': '',
+    });
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .where('uid', isEqualTo: uidLogado.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        this.uidProprietario = doc['uidProprietario'];
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(this.uidProprietario)
+        .collection('entregas')
+        .doc(this.entregaProprietatio.dataFinal)
+        .set({
+      'dataFinal': this.entregaProprietatio.dataFinal,
+    });
+
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(this.uidProprietario)
+        .collection('entregas')
+        .doc(this.entregaProprietatio.dataFinal)
+        .collection('peloSangrador')
+        .doc(uidLogado.uid)
+        .set({
+      'kilos': this.entregaProprietatio.kilos,
+      'dataInicio': this.entregaProprietatio.dataInicio,
+      'dataFinal': this.entregaProprietatio.dataFinal,
+      'preco': this.entregaProprietatio.preco,
+      'uidSangrador': uidLogado.uid,
     });
   }
 }

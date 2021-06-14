@@ -60,14 +60,7 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                     'Cotação da Borracha',
                     style: TextStyle(fontSize: 18),
                   ),
-                  leading: Icon(Icons.bar_chart),
-                ),
-                ListTile(
-                  title: Text(
-                    'Ultimas Entregas',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  leading: Icon(Icons.inbox),
+                  leading: Icon(Icons.bar_chart_outlined),
                 ),
                 ListTile(
                   title: Text(
@@ -84,14 +77,16 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                   ),
                   onTap: () => Navigator.of(context)
                       .pushNamed('/ultimaEntregaSangrador'),
-                  leading: Icon(Icons.move_to_inbox_outlined),
+                  leading: Icon(Icons.local_shipping_outlined),
                 ),
                 ListTile(
                   title: Text(
                     'Perfil',
                     style: TextStyle(fontSize: 18),
                   ),
-                  leading: Icon(Icons.account_circle_rounded),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed('/perfilSangrador'),
+                  leading: Icon(Icons.account_circle_outlined),
                 ),
                 Container(
                   child: ListTile(
@@ -103,7 +98,7 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                     ),
                     onTap: () => sair(context),
                     leading: Icon(
-                      Icons.logout,
+                      Icons.logout_outlined,
                       color: Color.fromARGB(255, 173, 46, 36),
                     ),
                   ),
