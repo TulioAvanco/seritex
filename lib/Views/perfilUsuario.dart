@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PerfilUsuario extends StatefulWidget {
   @override
@@ -16,6 +21,24 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
       CadastroController().editaUser(_novoUser);
       Navigator.of(context).pop();
     }
+  }
+
+  Future<void> uploadFile(String filePath, PickedFile file) async {
+    File enviar = File(file.path);
+    await firebase_storage.FirebaseStorage.instance
+        .ref('profileImages/' + filePath)
+        .putFile(enviar);
+
+    String downloadURL = await firebase_storage.FirebaseStorage.instance
+        .ref('profileImages/' + filePath)
+        .getDownloadURL();
+
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(uidLogado.uid)
+        .update({
+      'imagem': downloadURL,
+    });
   }
 
   final _formKey5 = GlobalKey<FormState>();
@@ -70,15 +93,29 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(padding: EdgeInsets.only(top: 8)),
-                            CircleAvatar(
-                              radius: 50,
-                              child: Image.asset(
-                                'assets/images/SeriTex_icon.png',
-                                fit: BoxFit.fill,
-                                height: 100,
-                              ),
-                              backgroundColor: Colors.white,
-                            ),
+                            InkWell(
+                                onTap: () async {
+                                  PickedFile image = await ImagePicker.platform
+                                      .pickImage(source: ImageSource.camera);
+                                  uploadFile(uidLogado.uid, image);
+                                  setState(() {
+                                    image = image;
+                                  });
+                                },
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage:
+                                          NetworkImage(dados['imagem']),
+                                      backgroundColor: Colors.white,
+                                    ),
+                                    Icon(
+                                      Icons.add_a_photo_outlined,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                )),
                             Padding(padding: EdgeInsets.only(bottom: 8)),
                             Text(dados['nome'],
                                 style: TextStyle(

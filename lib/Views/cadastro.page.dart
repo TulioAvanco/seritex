@@ -185,6 +185,7 @@ class _CadastroState extends State<Cadastro> {
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       cursorColor: Color.fromARGB(255, 25, 118, 70),
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
@@ -223,6 +224,7 @@ class _CadastroState extends State<Cadastro> {
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       cursorColor: Color.fromARGB(255, 25, 118, 70),
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
@@ -243,6 +245,7 @@ class _CadastroState extends State<Cadastro> {
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       cursorColor: Color.fromARGB(255, 25, 118, 70),
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(

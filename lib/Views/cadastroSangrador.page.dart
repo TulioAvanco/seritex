@@ -191,6 +191,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       cursorColor: Color.fromARGB(255, 25, 118, 70),
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(

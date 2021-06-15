@@ -37,10 +37,9 @@ class MenuDrawer extends StatelessWidget {
                           width: 100,
                           height: 100,
                           child: CircleAvatar(
-                            child: Image.asset(
-                              'assets/images/SeriTex_icon.png',
-                              fit: BoxFit.fill,
-                            ),
+                            radius: 50,
+                            backgroundImage:
+                                NetworkImage(snapshot.data['imagem']),
                             backgroundColor: Colors.white,
                           ),
                         ),
