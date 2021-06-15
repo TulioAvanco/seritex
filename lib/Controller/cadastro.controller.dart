@@ -75,7 +75,7 @@ class CadastroController {
       'uidProprietario': uidLogado.uid,
       'percentual': user.percentual,
       'tabela': user.tabelas,
-      'imagem:':
+      'imagem':
           'https://firebasestorage.googleapis.com/v0/b/api-seritex.appspot.com/o/SeriTex_icon.png?alt=media&token=34405a61-e9b5-4e4f-a277-98c687412250'
     });
     FirebaseFirestore.instance

@@ -79,11 +79,7 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                             Padding(padding: EdgeInsets.only(top: 8)),
                             CircleAvatar(
                               radius: 50,
-                              child: Image.asset(
-                                'assets/images/SeriTex_icon.png',
-                                fit: BoxFit.fill,
-                                height: 100,
-                              ),
+                              backgroundImage: NetworkImage(dados['imagem']),
                               backgroundColor: Colors.white,
                             ),
                             Padding(padding: EdgeInsets.only(bottom: 8)),
