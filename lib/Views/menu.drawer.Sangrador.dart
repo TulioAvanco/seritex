@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
 import 'package:seritex/Models/usuario.model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class MenuDrawerSangrador extends StatefulWidget {
@@ -14,6 +15,11 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
     CadastroController().logout();
 
     Navigator.of(context).pushNamed('/');
+  }
+
+  Future<void> abrirUrl() async {
+    const url = 'http://www.anrpc.org/html/daily-prices.aspx?';
+    await launch(url, forceWebView: false);
   }
 
   Usuario sangrador = new Usuario();
@@ -56,6 +62,7 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                   ),
                 ),
                 ListTile(
+                  onTap: () => abrirUrl(),
                   title: Text(
                     'Cotação da Borracha',
                     style: TextStyle(fontSize: 18),
@@ -72,21 +79,21 @@ class _MenuDrawerSangradorState extends State<MenuDrawerSangrador> {
                 ),
                 ListTile(
                   title: Text(
-                    'Ultimas Entregas',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  onTap: () => Navigator.of(context)
-                      .pushNamed('/ultimaEntregaSangrador'),
-                  leading: Icon(Icons.local_shipping_outlined),
-                ),
-                ListTile(
-                  title: Text(
                     'Perfil',
                     style: TextStyle(fontSize: 18),
                   ),
                   onTap: () =>
                       Navigator.of(context).pushNamed('/perfilSangrador'),
                   leading: Icon(Icons.account_circle_outlined),
+                ),
+                ListTile(
+                  title: Text(
+                    'Ultimas Entregas',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onTap: () => Navigator.of(context)
+                      .pushNamed('/ultimaEntregaSangrador'),
+                  leading: Icon(Icons.local_shipping_outlined),
                 ),
                 Container(
                   child: ListTile(

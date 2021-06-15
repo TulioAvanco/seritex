@@ -40,6 +40,17 @@ class CadastroController {
     });
   }
 
+  void editaPropriedade(Propridade prop) async {
+    await FirebaseFirestore.instance
+        .collection('propriedades')
+        .doc(uidLogado.uid)
+        .update({
+      'propriedade': prop.propriedade,
+      'qtdAlqueires': prop.qtdAlqueires,
+      'qtdArvores': prop.qtdtArvores,
+    });
+  }
+
   void editaSangrador(Sangrador user) async {
     await FirebaseFirestore.instance
         .collection('sangradores')
@@ -57,7 +68,7 @@ class CadastroController {
       'telefone': user.telefone,
       'status': user.status,
       'uid': pess.uid,
-      'uidProprietario': user.idProprietario,
+      'uidProprietario': uidLogado.uid,
       'percentual': user.percentual,
       'tabela': user.tabelas
     });
@@ -67,6 +78,16 @@ class CadastroController {
         .collection('sangradores')
         .doc(pess.uid)
         .set({'uidSangrador': pess.uid});
+  }
+
+  void editaSangradorAdm(Sangrador sangra) async {
+    await FirebaseFirestore.instance
+        .collection('sangradores')
+        .doc(sangra.idUser)
+        .update({
+      'percentual': sangra.percentual,
+      'tabela': sangra.tabelas,
+    });
   }
 
   signIn(Usuario login, BuildContext context) async {

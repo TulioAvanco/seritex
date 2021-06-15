@@ -1,11 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seritex/Controller/cadastro.controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuDrawer extends StatelessWidget {
   sair(BuildContext context) {
     CadastroController().logout();
     Navigator.of(context).pushNamed('/');
+  }
+
+  Future<void> abrirUrl() async {
+    const url = 'http://www.anrpc.org/html/daily-prices.aspx?';
+    await launch(url, forceWebView: false);
   }
 
   @override
@@ -46,6 +52,8 @@ class MenuDrawer extends StatelessWidget {
                   ),
                 ),
                 ListTile(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed('/administracao'),
                   title: Text(
                     'Administração',
                     style: TextStyle(fontSize: 18),
@@ -61,20 +69,12 @@ class MenuDrawer extends StatelessWidget {
                   leading: Icon(Icons.person_add_outlined),
                 ),
                 ListTile(
+                  onTap: () => abrirUrl(),
                   title: Text(
                     'Cotação da Borracha',
                     style: TextStyle(fontSize: 18),
                   ),
                   leading: Icon(Icons.bar_chart_outlined),
-                ),
-                ListTile(
-                  title: Text(
-                    'Ultimas Entregas',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  onTap: () =>
-                      Navigator.of(context).pushNamed('/ultimaEntregaUsuario'),
-                  leading: Icon(Icons.local_shipping_outlined),
                 ),
                 ListTile(
                   onTap: () =>
@@ -84,6 +84,15 @@ class MenuDrawer extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   leading: Icon(Icons.account_circle_outlined),
+                ),
+                ListTile(
+                  title: Text(
+                    'Ultimas Entregas',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed('/ultimaEntregaUsuario'),
+                  leading: Icon(Icons.local_shipping_outlined),
                 ),
                 Container(
                   child: ListTile(

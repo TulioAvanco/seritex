@@ -122,6 +122,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                 validator: (value) =>
                                     value.isEmpty ? "Campo Obrigatório" : null,
                               ),
+                              Padding(padding: EdgeInsets.only(bottom: 16)),
                               TextFormField(
                                 initialValue: dados['email'],
                                 enabled: false,

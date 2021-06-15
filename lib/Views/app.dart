@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:seritex/Views/addCorte.dart';
+import 'package:seritex/Views/administracao.dart';
 import 'package:seritex/Views/cadastro.page.dart';
 import 'package:seritex/Views/cadastroSangrador.page.dart';
 import 'package:seritex/Views/cotacao.page.dart';
@@ -38,7 +39,8 @@ class App extends StatelessWidget {
         '/ultimaEntregaUsuario': (context) => UltimaEntregaUsuario(),
         '/totalEntregaUsuario': (context) => TotalEntregaUsuario(),
         '/perfilUsuario': (context) => PerfilUsuario(),
-        '/perfilSangrador': (context) => PerfilSangrador()
+        '/perfilSangrador': (context) => PerfilSangrador(),
+        '/administracao': (context) => Administracao()
       },
       initialRoute: '/',
     );
