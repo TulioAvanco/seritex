@@ -56,6 +56,7 @@ class AddEntrega {
       'dataInicio': entrega.dataInicio,
       'dataFinal': entrega.dataFinal,
       'preco': entrega.preco,
+      'caixas': entrega.caixas
     });
     this.novaData = new DateFormat('yyyy-MM-dd').parse(entrega.dataFinal);
     this.novaData = this.novaData.add(Duration(days: 1));

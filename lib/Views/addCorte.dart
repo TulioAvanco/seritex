@@ -19,6 +19,7 @@ class _AddCorteState extends State<AddCorte> {
 
   List<Corte> listaCorte = [];
   Corte novoCorte = new Corte();
+  DateTime dataFinal = DateTime(2015);
 
   @override
   void initState() {
@@ -77,79 +78,79 @@ class _AddCorteState extends State<AddCorte> {
     return radio;
   }
 
-  buildContainer() {
-    return FutureBuilder(
-      future: buscaTabelas(),
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          return SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        Padding(padding: EdgeInsets.only(bottom: 32)),
-                        Text('Data',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 25, 118, 70),
-                                fontSize: 22)),
-                        Padding(padding: EdgeInsets.only(bottom: 16)),
-                        Text(novoCorte.data,
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 25, 118, 70),
-                                fontSize: 22)),
-                        Padding(padding: EdgeInsets.only(bottom: 16)),
-                        ElevatedButton(
-                            onPressed: () => _selectDate(context),
-                            child: Text(
-                              'Alterar Data',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color.fromARGB(255, 25, 118, 70)))),
-                      ],
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 32)),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            width: 2, color: Color.fromARGB(255, 25, 118, 70))),
-                    width: 300,
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: createRadioListUsers(),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 32)),
-                  ElevatedButton(
-                    onPressed: () => addCorte(context),
-                    child: Text('Cadastrar',
-                        style: TextStyle(fontSize: 23, color: Colors.white)),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 25, 118, 70)),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(18))),
-                  ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 25, 118, 70),
-            ),
-          );
-        }
-      },
-    );
-  }
+  // buildContainer() {
+  //   return FutureBuilder(
+  //     future: buscaTabelas(),
+  //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+  //       if (snapshot.hasData) {
+  //         return SingleChildScrollView(
+  //           child: Center(
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Container(
+  //                   child: Column(
+  //                     children: [
+  //                       Padding(padding: EdgeInsets.only(bottom: 32)),
+  //                       Text('Data',
+  //                           style: TextStyle(
+  //                               color: Color.fromARGB(255, 25, 118, 70),
+  //                               fontSize: 22)),
+  //                       Padding(padding: EdgeInsets.only(bottom: 16)),
+  //                       Text(novoCorte.data,
+  //                           style: TextStyle(
+  //                               color: Color.fromARGB(255, 25, 118, 70),
+  //                               fontSize: 22)),
+  //                       Padding(padding: EdgeInsets.only(bottom: 16)),
+  //                       ElevatedButton(
+  //                           onPressed: () => _selectDate(context),
+  //                           child: Text(
+  //                             'Alterar Data',
+  //                             style: TextStyle(fontSize: 16),
+  //                           ),
+  //                           style: ButtonStyle(
+  //                               backgroundColor: MaterialStateProperty.all(
+  //                                   Color.fromARGB(255, 25, 118, 70)))),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Padding(padding: EdgeInsets.only(bottom: 32)),
+  //                 Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(12),
+  //                       border: Border.all(
+  //                           width: 2, color: Color.fromARGB(255, 25, 118, 70))),
+  //                   width: 300,
+  //                   alignment: Alignment.center,
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: createRadioListUsers(),
+  //                   ),
+  //                 ),
+  //                 Padding(padding: EdgeInsets.only(bottom: 32)),
+  //                 ElevatedButton(
+  //                   onPressed: () => addCorte(context),
+  //                   child: Text('Cadastrar',
+  //                       style: TextStyle(fontSize: 23, color: Colors.white)),
+  //                   style: ButtonStyle(
+  //                       backgroundColor: MaterialStateProperty.all(
+  //                           Color.fromARGB(255, 25, 118, 70)),
+  //                       padding: MaterialStateProperty.all(EdgeInsets.all(18))),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       } else {
+  //         return Center(
+  //           child: CircularProgressIndicator(
+  //             color: Color.fromARGB(255, 25, 118, 70),
+  //           ),
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
   addCorte(BuildContext context) {
     AddCorteController().addCorte(novoCorte);
@@ -164,6 +165,104 @@ class _AddCorteState extends State<AddCorte> {
           centerTitle: true,
           backgroundColor: Color.fromARGB(255, 25, 118, 70),
         ),
-        body: buildContainer());
+        body: SingleChildScrollView(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('sangradores')
+                  .doc(uidLogado.uid)
+                  .collection('entregas')
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Color.fromARGB(255, 25, 118, 70),
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.data == null) {
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Color.fromARGB(255, 25, 118, 70),
+                      ),
+                    ),
+                  );
+                }
+
+                var dados = snapshot.data.docs;
+
+                var i = 1;
+                String pegaData;
+                while (i < dados.length) {
+                  pegaData = dados[i]['dataInicio'].toString();
+                  i++;
+                }
+                dataFinal = DateFormat('yyyy-MM-dd').parse(pegaData);
+
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Column(
+                          children: [
+                            Padding(padding: EdgeInsets.only(bottom: 32)),
+                            Text('Data',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 25, 118, 70),
+                                    fontSize: 22)),
+                            Padding(padding: EdgeInsets.only(bottom: 16)),
+                            Text(novoCorte.data,
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 25, 118, 70),
+                                    fontSize: 22)),
+                            Padding(padding: EdgeInsets.only(bottom: 16)),
+                            ElevatedButton(
+                                onPressed: () => _selectDate(context),
+                                child: Text(
+                                  'Alterar Data',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 25, 118, 70)))),
+                          ],
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 32)),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                                width: 2,
+                                color: Color.fromARGB(255, 25, 118, 70))),
+                        width: 300,
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: createRadioListUsers(),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 32)),
+                      ElevatedButton(
+                        onPressed: () => addCorte(context),
+                        child: Text('Cadastrar',
+                            style:
+                                TextStyle(fontSize: 23, color: Colors.white)),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Color.fromARGB(255, 25, 118, 70)),
+                            padding:
+                                MaterialStateProperty.all(EdgeInsets.all(18))),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ));
   }
 }

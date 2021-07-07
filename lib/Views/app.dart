@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:seritex/Views/addCorte.dart';
@@ -19,7 +20,13 @@ import 'package:seritex/Views/ultimaentregaUsuario.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance.settings = Settings(persistenceEnabled: true);
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme:
+            ColorScheme.light(primary: Color.fromARGB(255, 25, 118, 70)),
+        primaryColor: Color.fromARGB(255, 25, 118, 70),
+      ),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate

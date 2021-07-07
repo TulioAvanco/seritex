@@ -130,7 +130,7 @@ class _MostraEntregaState extends State<MostraEntrega> {
                           Column(
                             children: [
                               Text(
-                                'kilos',
+                                'Quilos',
                                 style: TextStyle(fontSize: 18),
                               ),
                               Padding(padding: EdgeInsets.only(top: 16)),

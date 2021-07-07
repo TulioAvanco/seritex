@@ -167,7 +167,7 @@ class _MostraEntregaUsuarioState extends State<MostraEntregaUsuario> {
                                 Column(
                                   children: [
                                     Text(
-                                      'kilos',
+                                      'Quilos',
                                       style: TextStyle(fontSize: 18),
                                     ),
                                     Padding(padding: EdgeInsets.only(top: 16)),

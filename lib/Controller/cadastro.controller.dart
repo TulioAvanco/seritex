@@ -100,6 +100,7 @@ class CadastroController {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: login.email, password: login.senha);
+      FirebaseFirestore.instance.settings = Settings(persistenceEnabled: true);
       uidLogado = FirebaseAuth.instance.currentUser;
 
       await FirebaseFirestore.instance
@@ -107,7 +108,7 @@ class CadastroController {
           .where('uid', isEqualTo: uidLogado.uid)
           .get()
           .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
+        querySnapshot.docs.forEach((doc) async {
           verifica = (doc['uid']);
         });
         if (verifica == uidLogado.uid) {
@@ -158,6 +159,6 @@ class CadastroController {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     uidLogado = null;
-    print(uidLogado);
+    await FirebaseFirestore.instance.clearPersistence();
   }
 }
