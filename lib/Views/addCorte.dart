@@ -13,9 +13,8 @@ class AddCorte extends StatefulWidget {
 
 class _AddCorteState extends State<AddCorte> {
   DateTime currentDate = DateTime.now();
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+
   Corte adiciona = new Corte();
-  int tabela;
 
   List<Corte> listaCorte = [];
   Corte novoCorte = new Corte();
@@ -23,134 +22,9 @@ class _AddCorteState extends State<AddCorte> {
 
   @override
   void initState() {
-    novoCorte.data = formatter.format(DateTime.now());
+    novoCorte.data = DateTime.now().toString();
     super.initState();
   }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime pickedDate = await showDatePicker(
-        context: context,
-        initialDate: currentDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != currentDate)
-      setState(() {
-        novoCorte.data = formatter.format(pickedDate);
-      });
-  }
-
-  Future<String> buscaTabelas() async {
-    await FirebaseFirestore.instance
-        .collection('sangradores')
-        .where('uid', isEqualTo: uidLogado.uid)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        this.tabela = int.parse(doc['tabela']);
-      });
-    });
-
-    return 'ok';
-  }
-
-  setSelectedUser(int corte) {
-    setState(() {
-      novoCorte.valor = corte;
-    });
-  }
-
-  List<Widget> createRadioListUsers() {
-    List<Widget> radio = [];
-    for (int x = 1; x <= this.tabela; x++) {
-      Corte adiciona = new Corte();
-      adiciona.valor = x;
-      adiciona.texto = 'Tabela ' + x.toString();
-      radio.add(RadioListTile(
-        title: Text(adiciona.texto),
-        value: adiciona.valor,
-        groupValue: novoCorte.valor,
-        activeColor: Color.fromARGB(255, 25, 118, 70),
-        onChanged: (valor) {
-          setSelectedUser(valor);
-        },
-      ));
-    }
-    return radio;
-  }
-
-  // buildContainer() {
-  //   return FutureBuilder(
-  //     future: buscaTabelas(),
-  //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-  //       if (snapshot.hasData) {
-  //         return SingleChildScrollView(
-  //           child: Center(
-  //             child: Column(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 Container(
-  //                   child: Column(
-  //                     children: [
-  //                       Padding(padding: EdgeInsets.only(bottom: 32)),
-  //                       Text('Data',
-  //                           style: TextStyle(
-  //                               color: Color.fromARGB(255, 25, 118, 70),
-  //                               fontSize: 22)),
-  //                       Padding(padding: EdgeInsets.only(bottom: 16)),
-  //                       Text(novoCorte.data,
-  //                           style: TextStyle(
-  //                               color: Color.fromARGB(255, 25, 118, 70),
-  //                               fontSize: 22)),
-  //                       Padding(padding: EdgeInsets.only(bottom: 16)),
-  //                       ElevatedButton(
-  //                           onPressed: () => _selectDate(context),
-  //                           child: Text(
-  //                             'Alterar Data',
-  //                             style: TextStyle(fontSize: 16),
-  //                           ),
-  //                           style: ButtonStyle(
-  //                               backgroundColor: MaterialStateProperty.all(
-  //                                   Color.fromARGB(255, 25, 118, 70)))),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 Padding(padding: EdgeInsets.only(bottom: 32)),
-  //                 Container(
-  //                   decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.circular(12),
-  //                       border: Border.all(
-  //                           width: 2, color: Color.fromARGB(255, 25, 118, 70))),
-  //                   width: 300,
-  //                   alignment: Alignment.center,
-  //                   child: Column(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: createRadioListUsers(),
-  //                   ),
-  //                 ),
-  //                 Padding(padding: EdgeInsets.only(bottom: 32)),
-  //                 ElevatedButton(
-  //                   onPressed: () => addCorte(context),
-  //                   child: Text('Cadastrar',
-  //                       style: TextStyle(fontSize: 23, color: Colors.white)),
-  //                   style: ButtonStyle(
-  //                       backgroundColor: MaterialStateProperty.all(
-  //                           Color.fromARGB(255, 25, 118, 70)),
-  //                       padding: MaterialStateProperty.all(EdgeInsets.all(18))),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       } else {
-  //         return Center(
-  //           child: CircularProgressIndicator(
-  //             color: Color.fromARGB(255, 25, 118, 70),
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
 
   addCorte(BuildContext context) {
     AddCorteController().addCorte(novoCorte);
@@ -192,76 +66,149 @@ class _AddCorteState extends State<AddCorte> {
                     ),
                   );
                 }
+                return StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('sangradores')
+                        .doc(uidLogado.uid)
+                        .snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot1) {
+                      if (snapshot1.connectionState ==
+                          ConnectionState.waiting) {
+                        return Container(
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 25, 118, 70),
+                            ),
+                          ),
+                        );
+                      }
+                      if (!snapshot1.hasData) {
+                        return Container(
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Color.fromARGB(255, 25, 118, 70),
+                            ),
+                          ),
+                        );
+                      }
+                      var dados = snapshot.data.docs;
+                      var i = 1;
+                      var dados2 = snapshot1.data;
+                      int tabelas = int.parse(dados2['tabela']);
+                      List<Widget> radio = [];
+                      for (int x = 1; x <= tabelas; x++) {
+                        Corte adiciona = new Corte();
+                        adiciona.valor = x;
+                        adiciona.texto = 'Tabela ' + x.toString();
+                        radio.add(RadioListTile(
+                          title: Text(adiciona.texto),
+                          value: adiciona.valor,
+                          groupValue: novoCorte.valor,
+                          activeColor: Color.fromARGB(255, 25, 118, 70),
+                          onChanged: (valor) {
+                            setState(() {
+                              novoCorte.valor = valor;
+                            });
+                          },
+                        ));
+                      }
 
-                var dados = snapshot.data.docs;
-
-                var i = 1;
-                String pegaData;
-                while (i < dados.length) {
-                  pegaData = dados[i]['dataInicio'].toString();
-                  i++;
-                }
-                dataFinal = DateFormat('yyyy-MM-dd').parse(pegaData);
-
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Padding(padding: EdgeInsets.only(bottom: 32)),
-                            Text('Data',
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 25, 118, 70),
-                                    fontSize: 22)),
-                            Padding(padding: EdgeInsets.only(bottom: 16)),
-                            Text(novoCorte.data,
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 25, 118, 70),
-                                    fontSize: 22)),
-                            Padding(padding: EdgeInsets.only(bottom: 16)),
-                            ElevatedButton(
-                                onPressed: () => _selectDate(context),
-                                child: Text(
-                                  'Alterar Data',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Color.fromARGB(255, 25, 118, 70)))),
-                          ],
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.only(bottom: 32)),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                                width: 2,
-                                color: Color.fromARGB(255, 25, 118, 70))),
-                        width: 300,
-                        alignment: Alignment.center,
+                      String pegaData;
+                      while (i < dados.length) {
+                        pegaData = dados[i]['dataInicio'].toString();
+                        i++;
+                      }
+                      dataFinal = DateFormat('yyyy-MM-dd').parse(pegaData);
+                      return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: createRadioListUsers(),
+                          children: [
+                            Container(
+                              child: Column(
+                                children: [
+                                  Padding(padding: EdgeInsets.only(bottom: 32)),
+                                  Text('Data',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 25, 118, 70),
+                                          fontSize: 22)),
+                                  Padding(padding: EdgeInsets.only(bottom: 16)),
+                                  Text(
+                                      DateFormat("dd/MM/yyyy").format(
+                                          DateFormat('yyyy-MM-dd').parse(
+                                        novoCorte.data,
+                                      )),
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 25, 118, 70),
+                                          fontSize: 22)),
+                                  Padding(padding: EdgeInsets.only(bottom: 16)),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      final DateTime pickedDate =
+                                          await showDatePicker(
+                                              context: context,
+                                              initialDate:
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .parse(novoCorte.data),
+                                              firstDate: dataFinal,
+                                              lastDate: currentDate);
+                                      if (pickedDate != null &&
+                                          pickedDate != currentDate)
+                                        setState(() {
+                                          novoCorte.data =
+                                              pickedDate.toString();
+
+                                          print(dataFinal);
+                                        });
+                                    },
+                                    child: Text('Alterar Data',
+                                        style: TextStyle(
+                                            fontSize: 23, color: Colors.white)),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Color.fromARGB(
+                                                    255, 25, 118, 70)),
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.all(18))),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.only(bottom: 32)),
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                        width: 2,
+                                        color:
+                                            Color.fromARGB(255, 25, 118, 70))),
+                                width: 300,
+                                alignment: Alignment.center,
+                                child: StatefulBuilder(
+                                    builder: (context, setState) {
+                                  return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [for (var x in radio) x]);
+                                })),
+                            Padding(padding: EdgeInsets.only(bottom: 32)),
+                            ElevatedButton(
+                              onPressed: () => addCorte(context),
+                              child: Text('Cadastrar',
+                                  style: TextStyle(
+                                      fontSize: 23, color: Colors.white)),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color.fromARGB(255, 25, 118, 70)),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(18))),
+                            ),
+                          ],
                         ),
-                      ),
-                      Padding(padding: EdgeInsets.only(bottom: 32)),
-                      ElevatedButton(
-                        onPressed: () => addCorte(context),
-                        child: Text('Cadastrar',
-                            style:
-                                TextStyle(fontSize: 23, color: Colors.white)),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Color.fromARGB(255, 25, 118, 70)),
-                            padding:
-                                MaterialStateProperty.all(EdgeInsets.all(18))),
-                      ),
-                    ],
-                  ),
-                );
+                      );
+                    });
               }),
         ));
   }

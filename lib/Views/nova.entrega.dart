@@ -91,7 +91,11 @@ class _NovaEntregaState extends State<NovaEntrega> {
                                 color: Color.fromARGB(255, 25, 118, 70),
                                 fontSize: 22)),
                         Padding(padding: EdgeInsets.only(bottom: 16)),
-                        Text(novaEntrega.dataFinal,
+                        Text(
+                            DateFormat("dd/MM/yyyy")
+                                .format(DateFormat('dd-MM-yyyy').parse(
+                              novaEntrega.dataFinal,
+                            )),
                             style: TextStyle(
                                 color: Color.fromARGB(255, 25, 118, 70),
                                 fontSize: 22)),
