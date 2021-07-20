@@ -87,63 +87,32 @@ class _LoginState extends State<Login> {
                 }
 
                 return Container(
-                  margin: EdgeInsets.all(60),
+                  height: 700,
+                  margin: EdgeInsets.only(left: 50, right: 50, top: 30),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          margin: EdgeInsets.all(30),
-                          child: Image.asset('assets/images/SeriTex_logo.png')),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              cursorColor: Color.fromARGB(255, 25, 118, 70),
-                              decoration: InputDecoration(
-                                  suffixIcon: Icon(
-                                    Icons.person,
-                                    color: Color.fromARGB(255, 25, 118, 70),
-                                  ),
-                                  labelStyle: (TextStyle(
-                                      color: Color.fromARGB(255, 25, 118, 70))),
-                                  labelText: 'E-mail',
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 25, 118, 70))),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 25, 118, 70)))),
-                              onSaved: (value) => _login.email = value,
-                              validator: (value) =>
-                                  value.isEmpty ? "Campo Obrigatório" : null,
-                            ),
-                            Padding(padding: EdgeInsets.only(bottom: 16)),
-                            StatefulBuilder(builder: (context, setState) {
-                              return TextFormField(
-                                obscureText: _passwordobscure,
+                        child: Image.asset('assets/images/SeriTex_logo.png'),
+                        height: 250,
+                      ),
+                      Container(
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
                                 cursorColor: Color.fromARGB(255, 25, 118, 70),
                                 decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        _passwordobscure
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: Color.fromARGB(255, 25, 118, 70),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          _passwordobscure = !_passwordobscure;
-                                        });
-                                      },
+                                    suffixIcon: Icon(
+                                      Icons.person,
+                                      color: Color.fromARGB(255, 25, 118, 70),
                                     ),
-                                    labelText: 'Senha',
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
+                                    labelText: 'E-mail',
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Color.fromARGB(
@@ -152,37 +121,85 @@ class _LoginState extends State<Login> {
                                         borderSide: BorderSide(
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70)))),
-                                onSaved: (value) => _login.senha = value,
+                                onSaved: (value) => _login.email = value,
                                 validator: (value) =>
                                     value.isEmpty ? "Campo Obrigatório" : null,
-                              );
-                            }),
-                            Padding(padding: EdgeInsets.only(bottom: 16)),
-                            ElevatedButton(
-                              onPressed: () => login(context),
-                              child: Text(
-                                'Entrar',
-                                style: TextStyle(fontSize: 23),
                               ),
-                              style: ButtonStyle(
+                              Padding(padding: EdgeInsets.only(bottom: 16)),
+                              StatefulBuilder(builder: (context, setState) {
+                                return TextFormField(
+                                  obscureText: _passwordobscure,
+                                  cursorColor: Color.fromARGB(255, 25, 118, 70),
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _passwordobscure
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          color:
+                                              Color.fromARGB(255, 25, 118, 70),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordobscure =
+                                                !_passwordobscure;
+                                          });
+                                        },
+                                      ),
+                                      labelText: 'Senha',
+                                      labelStyle: (TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 25, 118, 70))),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 25, 118, 70))),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 25, 118, 70)))),
+                                  onSaved: (value) => _login.senha = value,
+                                  validator: (value) => value.isEmpty
+                                      ? "Campo Obrigatório"
+                                      : null,
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints.tightFor(
+                                  height: 59, width: double.infinity),
+                              child: ElevatedButton(
+                                onPressed: () => login(context),
+                                child: Text(
+                                  'Entrar',
+                                  style: TextStyle(fontSize: 23),
+                                ),
+                                style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Color.fromARGB(255, 25, 118, 70)),
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.all(8))),
+                                ),
+                              ),
                             ),
                             Padding(padding: EdgeInsets.only(bottom: 16)),
-                            ElevatedButton(
-                              onPressed: () => cadastese(context),
-                              child: Text(
-                                'Cadastre-se',
-                                style: TextStyle(fontSize: 23),
+                            ConstrainedBox(
+                              constraints: BoxConstraints.tightFor(
+                                  height: 59, width: double.infinity),
+                              child: ElevatedButton(
+                                onPressed: () => cadastese(context),
+                                child: Text(
+                                  'Cadastre-se',
+                                  style: TextStyle(fontSize: 23),
+                                ),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 1, 41, 95))),
                               ),
-                              style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                    EdgeInsets.all(8),
-                                  ),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 1, 41, 95))),
                             )
                           ],
                         ),
