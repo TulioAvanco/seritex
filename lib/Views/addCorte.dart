@@ -120,92 +120,108 @@ class _AddCorteState extends State<AddCorte> {
                       }
                       dataFinal = DateFormat('yyyy-MM-dd').parse(pegaData);
                       return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Column(
-                                children: [
-                                  Padding(padding: EdgeInsets.only(bottom: 32)),
-                                  Text('Data',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 25, 118, 70),
-                                          fontSize: 22)),
-                                  Padding(padding: EdgeInsets.only(bottom: 16)),
-                                  Text(
-                                      DateFormat("dd/MM/yyyy").format(
-                                          DateFormat('yyyy-MM-dd').parse(
-                                        novoCorte.data,
-                                      )),
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 25, 118, 70),
-                                          fontSize: 22)),
-                                  Padding(padding: EdgeInsets.only(bottom: 16)),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      final DateTime pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate:
-                                                  DateFormat('yyyy-MM-dd')
-                                                      .parse(novoCorte.data),
-                                              firstDate: dataFinal,
-                                              lastDate: currentDate);
-                                      if (pickedDate != null &&
-                                          pickedDate != currentDate)
-                                        setState(() {
-                                          novoCorte.data =
-                                              pickedDate.toString();
-
-                                          print(dataFinal);
-                                        });
-                                    },
-                                    child: Text('Alterar Data',
+                        child: Container(
+                          margin: EdgeInsets.only(left: 50, right: 50),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                        padding: EdgeInsets.only(bottom: 32)),
+                                    Text('Data',
                                         style: TextStyle(
-                                            fontSize: 23, color: Colors.white)),
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Color.fromARGB(
-                                                    255, 25, 118, 70)),
-                                        padding: MaterialStateProperty.all(
-                                            EdgeInsets.all(18))),
-                                  ),
-                                ],
+                                            color: Color.fromARGB(
+                                                255, 25, 118, 70),
+                                            fontSize: 22)),
+                                    Padding(
+                                        padding: EdgeInsets.only(bottom: 16)),
+                                    Text(
+                                        DateFormat("dd/MM/yyyy").format(
+                                            DateFormat('yyyy-MM-dd').parse(
+                                          novoCorte.data,
+                                        )),
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 25, 118, 70),
+                                            fontSize: 22)),
+                                    Padding(
+                                        padding: EdgeInsets.only(bottom: 16)),
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints.tightFor(
+                                          height: 59, width: double.infinity),
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          final DateTime pickedDate =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateFormat(
+                                                          'yyyy-MM-dd')
+                                                      .parse(novoCorte.data),
+                                                  firstDate: dataFinal,
+                                                  lastDate: currentDate);
+                                          if (pickedDate != null &&
+                                              pickedDate != currentDate)
+                                            setState(() {
+                                              novoCorte.data =
+                                                  pickedDate.toString();
+
+                                              print(dataFinal);
+                                            });
+                                        },
+                                        child: Text('Alterar Data',
+                                            style: TextStyle(
+                                                fontSize: 23,
+                                                color: Colors.white)),
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Color.fromARGB(
+                                                        255, 25, 118, 70)),
+                                            padding: MaterialStateProperty.all(
+                                                EdgeInsets.all(18))),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(padding: EdgeInsets.only(bottom: 32)),
-                            Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                        width: 2,
-                                        color:
-                                            Color.fromARGB(255, 25, 118, 70))),
-                                width: 300,
-                                alignment: Alignment.center,
-                                child: StatefulBuilder(
-                                    builder: (context, setState) {
-                                  return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [for (var x in radio) x]);
-                                })),
-                            Padding(padding: EdgeInsets.only(bottom: 32)),
-                            ElevatedButton(
-                              onPressed: () => addCorte(context),
-                              child: Text('Cadastrar',
-                                  style: TextStyle(
-                                      fontSize: 23, color: Colors.white)),
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 25, 118, 70)),
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.all(18))),
-                            ),
-                          ],
+                              Padding(padding: EdgeInsets.only(bottom: 32)),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: Color.fromARGB(
+                                              255, 25, 118, 70))),
+                                  width: 300,
+                                  alignment: Alignment.center,
+                                  child: StatefulBuilder(
+                                      builder: (context, setState) {
+                                    return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [for (var x in radio) x]);
+                                  })),
+                              Padding(padding: EdgeInsets.only(bottom: 32)),
+                              ConstrainedBox(
+                                constraints: BoxConstraints.tightFor(
+                                    height: 59, width: double.infinity),
+                                child: ElevatedButton(
+                                  onPressed: () => addCorte(context),
+                                  child: Text('Cadastrar',
+                                      style: TextStyle(
+                                          fontSize: 23, color: Colors.white)),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Color.fromARGB(255, 25, 118, 70)),
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.all(18))),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     });

@@ -128,7 +128,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   Container(
-                      margin: EdgeInsets.all(60),
+                      margin: EdgeInsets.all(50),
                       child: Form(
                         key: _formKey5,
                         child: Column(
@@ -200,16 +200,20 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                   value.isEmpty ? "Campo Obrigatório" : null,
                             ),
                             Padding(padding: EdgeInsets.only(bottom: 16)),
-                            ElevatedButton(
-                              onPressed: () => editaPerfil(context),
-                              child: Text('Salvar',
-                                  style: TextStyle(
-                                      fontSize: 23, color: Colors.white)),
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 25, 118, 70)),
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.all(16))),
+                            ConstrainedBox(
+                              constraints: BoxConstraints.tightFor(
+                                  height: 59, width: double.infinity),
+                              child: ElevatedButton(
+                                onPressed: () => editaPerfil(context),
+                                child: Text('Salvar',
+                                    style: TextStyle(
+                                        fontSize: 23, color: Colors.white)),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 25, 118, 70)),
+                                    padding: MaterialStateProperty.all(
+                                        EdgeInsets.all(16))),
+                              ),
                             )
                           ],
                         ),

@@ -51,7 +51,7 @@ class _HomeAdmState extends State<HomeAdm> {
 
             return Center(
               child: Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.all(50),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

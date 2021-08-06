@@ -78,7 +78,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
 
                   return Center(
                     child: Container(
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.all(50),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -185,16 +185,20 @@ class _HomeSangradorState extends State<HomeSangrador> {
                               )),
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () => novoCorte(context),
-                            child: Text('Novo Corte',
-                                style: TextStyle(
-                                    fontSize: 23, color: Colors.white)),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color.fromARGB(255, 25, 118, 70)),
-                                padding: MaterialStateProperty.all(
-                                    EdgeInsets.all(16))),
+                          ConstrainedBox(
+                            constraints: BoxConstraints.tightFor(
+                                height: 59, width: double.infinity),
+                            child: ElevatedButton(
+                              onPressed: () => novoCorte(context),
+                              child: Text('Novo Corte',
+                                  style: TextStyle(
+                                      fontSize: 23, color: Colors.white)),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color.fromARGB(255, 25, 118, 70)),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(16))),
+                            ),
                           ),
                         ],
                       ),
