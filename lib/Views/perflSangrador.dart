@@ -127,7 +127,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   SingleChildScrollView(
                     child: Container(
-                        margin: EdgeInsets.all(50),
+                        margin: EdgeInsets.all(30),
                         child: Form(
                           key: _formKey5,
                           child: Column(
@@ -141,7 +141,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
-                                    icon: Icon(Icons.account_circle_outlined,
+                                    prefixIcon: Icon(Icons.account_box,
                                         color:
                                             Color.fromARGB(255, 25, 118, 70)),
                                     labelText: 'Nome',
@@ -166,7 +166,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
-                                    icon: Icon(Icons.mail_outline_outlined,
+                                    prefixIcon: Icon(Icons.mail,
                                         color:
                                             Color.fromARGB(255, 25, 118, 70)),
                                     labelText: 'E-mail',
@@ -188,7 +188,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
-                                    icon: Icon(Icons.phone_android_outlined,
+                                    prefixIcon: Icon(Icons.phone_android,
                                         color:
                                             Color.fromARGB(255, 25, 118, 70)),
                                     labelText: 'Telefone',
@@ -213,7 +213,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
-                                    icon: Icon(Icons.payment_outlined,
+                                    prefixIcon: Icon(Icons.payments,
                                         color:
                                             Color.fromARGB(255, 25, 118, 70)),
                                     labelText: 'Percentual',
@@ -235,7 +235,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                                     labelStyle: (TextStyle(
                                         color:
                                             Color.fromARGB(255, 25, 118, 70))),
-                                    icon: Icon(Icons.park_outlined,
+                                    prefixIcon: Icon(Icons.grid_4x4,
                                         color:
                                             Color.fromARGB(255, 25, 118, 70)),
                                     labelText: 'Tabelas',

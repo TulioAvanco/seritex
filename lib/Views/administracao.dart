@@ -96,7 +96,7 @@ class _AdministracaoState extends State<Administracao> {
                       children: [
                         Padding(padding: EdgeInsets.only(bottom: 16)),
                         Container(
-                            margin: EdgeInsets.all(60),
+                            margin: EdgeInsets.all(30),
                             child: Form(
                               key: _formKey6,
                               child: Column(
@@ -112,7 +112,7 @@ class _AdministracaoState extends State<Administracao> {
                                         labelStyle: (TextStyle(
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70))),
-                                        icon: Icon(Icons.home_outlined,
+                                        prefixIcon: Icon(Icons.cottage,
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70)),
                                         labelText: 'Propriedade',
@@ -141,7 +141,7 @@ class _AdministracaoState extends State<Administracao> {
                                         labelStyle: (TextStyle(
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70))),
-                                        icon: Icon(Icons.texture_outlined,
+                                        prefixIcon: Icon(Icons.fence,
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70)),
                                         labelText: 'Alqueires',
@@ -170,7 +170,7 @@ class _AdministracaoState extends State<Administracao> {
                                         labelStyle: (TextStyle(
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70))),
-                                        icon: Icon(Icons.park_outlined,
+                                        prefixIcon: Icon(Icons.park,
                                             color: Color.fromARGB(
                                                 255, 25, 118, 70)),
                                         labelText: 'Arvores',

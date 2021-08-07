@@ -105,7 +105,7 @@ class _LoginState extends State<Login> {
                               TextFormField(
                                 cursorColor: Color.fromARGB(255, 25, 118, 70),
                                 decoration: InputDecoration(
-                                    suffixIcon: Icon(
+                                    prefixIcon: Icon(
                                       Icons.person,
                                       color: Color.fromARGB(255, 25, 118, 70),
                                     ),
@@ -131,6 +131,10 @@ class _LoginState extends State<Login> {
                                   obscureText: _passwordobscure,
                                   cursorColor: Color.fromARGB(255, 25, 118, 70),
                                   decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: Color.fromARGB(255, 25, 118, 70),
+                                      ),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           _passwordobscure

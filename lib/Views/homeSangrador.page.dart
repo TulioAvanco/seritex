@@ -106,7 +106,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    Icons.house_outlined,
+                                    Icons.cottage,
                                     color: Color.fromARGB(255, 25, 118, 70),
                                   ),
                                   Padding(padding: EdgeInsets.only(right: 10)),
@@ -117,7 +117,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                             Color.fromARGB(255, 25, 118, 70)),
                                   ),
                                   Padding(padding: EdgeInsets.only(right: 10)),
-                                  Icon(Icons.house_outlined,
+                                  Icon(Icons.cottage,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                 ],
                               )),
@@ -138,7 +138,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    Icons.texture_outlined,
+                                    Icons.fence,
                                     color: Color.fromARGB(255, 25, 118, 70),
                                   ),
                                   Padding(padding: EdgeInsets.only(right: 10)),
@@ -149,7 +149,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                             Color.fromARGB(255, 25, 118, 70)),
                                   ),
                                   Padding(padding: EdgeInsets.only(right: 10)),
-                                  Icon(Icons.texture_outlined,
+                                  Icon(Icons.fence,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                 ],
                               )),
@@ -169,7 +169,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                   child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.park_outlined,
+                                  Icon(Icons.park,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                   Padding(padding: EdgeInsets.only(right: 10)),
                                   Text(
@@ -179,7 +179,7 @@ class _HomeSangradorState extends State<HomeSangrador> {
                                             Color.fromARGB(255, 25, 118, 70)),
                                   ),
                                   Padding(padding: EdgeInsets.only(right: 10)),
-                                  Icon(Icons.park_outlined,
+                                  Icon(Icons.park,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                 ],
                               )),

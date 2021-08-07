@@ -84,7 +84,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
         ),
         body: SingleChildScrollView(
           child: Container(
-              margin: EdgeInsets.all(50),
+              margin: EdgeInsets.all(30),
               child: Form(
                 key: _formKey3,
                 child: Column(
@@ -96,7 +96,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.account_circle_outlined,
+                          prefixIcon: Icon(Icons.account_box,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Nome',
                           border: OutlineInputBorder(
@@ -115,7 +115,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.mail_outline,
+                          prefixIcon: Icon(Icons.mail,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'E-mail',
                           border: OutlineInputBorder(
@@ -143,7 +143,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock_outline,
+                          prefixIcon: Icon(Icons.lock,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -176,7 +176,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock_outline,
+                          prefixIcon: Icon(Icons.lock,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Confirmar Senha',
                           border: OutlineInputBorder(
@@ -196,7 +196,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.phone_outlined,
+                          prefixIcon: Icon(Icons.phone_android,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Telefone',
                           border: OutlineInputBorder(
@@ -231,7 +231,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
                               })
                             }),
                     Text(
-                      _sangrador.percentual.round().toString(),
+                      _sangrador.percentual.round().toString() + '%',
                       style: TextStyle(
                           fontSize: 16,
                           color: Color.fromARGB(255, 25, 118, 70)),

@@ -94,7 +94,7 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   Container(
-                      margin: EdgeInsets.all(60),
+                      margin: EdgeInsets.all(30),
                       child: Form(
                         key: _formKey7,
                         child: Column(
@@ -108,7 +108,7 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                               decoration: InputDecoration(
                                   labelStyle: (TextStyle(
                                       color: Color.fromARGB(255, 25, 118, 70))),
-                                  icon: Icon(Icons.account_circle_outlined,
+                                  prefixIcon: Icon(Icons.account_box,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                   labelText: 'Nome',
                                   border: OutlineInputBorder(
@@ -128,7 +128,7 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                               decoration: InputDecoration(
                                   labelStyle: (TextStyle(
                                       color: Color.fromARGB(255, 25, 118, 70))),
-                                  icon: Icon(Icons.mail_outline_outlined,
+                                  prefixIcon: Icon(Icons.mail,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                   labelText: 'E-mail',
                                   border: OutlineInputBorder(
@@ -149,7 +149,7 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                               decoration: InputDecoration(
                                   labelStyle: (TextStyle(
                                       color: Color.fromARGB(255, 25, 118, 70))),
-                                  icon: Icon(Icons.phone_android_outlined,
+                                  prefixIcon: Icon(Icons.phone_android,
                                       color: Color.fromARGB(255, 25, 118, 70)),
                                   labelText: 'Telefone',
                                   border: OutlineInputBorder(
@@ -189,7 +189,8 @@ class _AdministracaoEditaState extends State<AdministracaoEdita> {
                                             })
                                           }),
                                   Text(
-                                    _sangrador.percentual.round().toString(),
+                                    _sangrador.percentual.round().toString() +
+                                        '%',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color:

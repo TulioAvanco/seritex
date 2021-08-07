@@ -82,7 +82,7 @@ class _NovaEntregaState extends State<NovaEntrega> {
 
                 return Center(
                     child: Container(
-                  margin: EdgeInsets.only(top: 20, left: 50, right: 50),
+                  margin: EdgeInsets.all(30),
                   child: Column(
                     children: [
                       StatefulBuilder(builder: (context, setState) {
@@ -136,16 +136,14 @@ class _NovaEntregaState extends State<NovaEntrega> {
                       Form(
                           key: _formKey4,
                           child: Container(
-                            margin: EdgeInsets.only(top: 20),
-                            width: 300,
                             child: Column(children: [
                               Padding(padding: EdgeInsets.only(top: 20)),
                               TextFormField(
                                 cursorColor: Color.fromARGB(255, 25, 118, 70),
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.monitor_weight_outlined,
+                                    prefixIcon: Icon(
+                                      Icons.archive,
                                       color: Color.fromARGB(255, 25, 118, 70),
                                     ),
                                     labelStyle: (TextStyle(
@@ -170,8 +168,8 @@ class _NovaEntregaState extends State<NovaEntrega> {
                                 cursorColor: Color.fromARGB(255, 25, 118, 70),
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.monetization_on_outlined,
+                                    prefixIcon: Icon(
+                                      Icons.monetization_on,
                                       color: Color.fromARGB(255, 25, 118, 70),
                                     ),
                                     labelStyle: (TextStyle(
@@ -196,8 +194,8 @@ class _NovaEntregaState extends State<NovaEntrega> {
                                 cursorColor: Color.fromARGB(255, 25, 118, 70),
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.inbox_outlined,
+                                    prefixIcon: Icon(
+                                      Icons.inbox,
                                       color: Color.fromARGB(255, 25, 118, 70),
                                     ),
                                     labelStyle: (TextStyle(

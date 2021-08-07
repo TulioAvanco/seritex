@@ -78,7 +78,7 @@ class _CadastroState extends State<Cadastro> {
         ),
         body: SingleChildScrollView(
           child: Container(
-              margin: EdgeInsets.all(60),
+              margin: EdgeInsets.all(50),
               child: Form(
                 key: _formKey2,
                 child: Column(
@@ -90,7 +90,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.account_circle_outlined,
+                          prefixIcon: Icon(Icons.account_box,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Nome',
                           border: OutlineInputBorder(
@@ -109,7 +109,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.mail_outline_outlined,
+                          prefixIcon: Icon(Icons.mail,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'E-mail',
                           border: OutlineInputBorder(
@@ -137,7 +137,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock_outline,
+                          prefixIcon: Icon(Icons.lock,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -170,7 +170,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.lock_outline,
+                          prefixIcon: Icon(Icons.lock,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Confirmar Senha',
                           border: OutlineInputBorder(
@@ -190,7 +190,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.phone_android_outlined,
+                          prefixIcon: Icon(Icons.phone_android,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Telefone',
                           border: OutlineInputBorder(
@@ -209,7 +209,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.house_outlined,
+                          prefixIcon: Icon(Icons.cottage,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Nome da Propriedade',
                           border: OutlineInputBorder(
@@ -229,7 +229,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.texture_outlined,
+                          prefixIcon: Icon(Icons.fence,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Alqueires',
                           border: OutlineInputBorder(
@@ -250,7 +250,7 @@ class _CadastroState extends State<Cadastro> {
                       decoration: InputDecoration(
                           labelStyle: (TextStyle(
                               color: Color.fromARGB(255, 25, 118, 70))),
-                          icon: Icon(Icons.park_outlined,
+                          prefixIcon: Icon(Icons.park,
                               color: Color.fromARGB(255, 25, 118, 70)),
                           labelText: 'Quantidades de Árvores',
                           border: OutlineInputBorder(
@@ -265,15 +265,20 @@ class _CadastroState extends State<Cadastro> {
                           value.isEmpty ? "Campo Obrigatório" : null,
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 16)),
-                    ElevatedButton(
-                      onPressed: () => cadastrese(context),
-                      child: Text('Cadastrar',
-                          style: TextStyle(fontSize: 23, color: Colors.white)),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 25, 118, 70)),
-                          padding:
-                              MaterialStateProperty.all(EdgeInsets.all(16))),
+                    ConstrainedBox(
+                      constraints: BoxConstraints.tightFor(
+                          height: 59, width: double.infinity),
+                      child: ElevatedButton(
+                        onPressed: () => cadastrese(context),
+                        child: Text('Cadastrar',
+                            style:
+                                TextStyle(fontSize: 23, color: Colors.white)),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Color.fromARGB(255, 25, 118, 70)),
+                            padding:
+                                MaterialStateProperty.all(EdgeInsets.all(16))),
+                      ),
                     ),
                   ],
                 ),
