@@ -15,6 +15,7 @@ class _CadastroState extends State<Cadastro> {
   var _passwordobscure = true;
   final _novoUser = new Usuario();
   final _novaPropriedade = new Propridade();
+
   cadastrese(BuildContext context) async {
     _formKey2.currentState.save();
     if (_formKey2.currentState.validate()) {
@@ -23,6 +24,22 @@ class _CadastroState extends State<Cadastro> {
             email: _novoUser.email, password: _novoUser.senha);
         CadastroController().addUser(_novoUser, _novaPropriedade);
         Navigator.of(context).pop(true);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'Cadastro realizado com Sucesso.',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          backgroundColor: Color.fromARGB(255, 25, 118, 70),
+        ));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -39,7 +56,7 @@ class _CadastroState extends State<Cadastro> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+            backgroundColor: Color.fromARGB(255, 173, 46, 36),
           ));
         } else if (e.code == 'email-already-in-use') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -56,7 +73,7 @@ class _CadastroState extends State<Cadastro> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+            backgroundColor: Color.fromARGB(255, 173, 46, 36),
           ));
         }
       } catch (e) {

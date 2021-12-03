@@ -29,6 +29,22 @@ class _AddCorteState extends State<AddCorte> {
   addCorte(BuildContext context) {
     AddCorteController().addCorte(novoCorte);
     Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        'Corte Lançado',
+        style: TextStyle(color: Colors.white),
+      ),
+      duration: const Duration(milliseconds: 1500),
+      width: 280.0,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      backgroundColor: Color.fromARGB(255, 25, 118, 70),
+    ));
   }
 
   @override

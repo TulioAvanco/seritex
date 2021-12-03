@@ -14,7 +14,7 @@ class AddCorteController {
   DateTime formata;
   Future<String> addCorte(Corte novoCorte) async {
     this.data = formatter.format(DateTime.now());
-    this.formata = new DateFormat('dd-MM-yyyy').parse(novoCorte.data);
+    this.formata = new DateFormat('yyyy-MM-dd').parse(novoCorte.data);
     novoCorte.data = formatter.format(this.formata);
     await FirebaseFirestore.instance
         .collection('sangradores')

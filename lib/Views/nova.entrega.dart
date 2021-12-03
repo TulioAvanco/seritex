@@ -25,6 +25,22 @@ class _NovaEntregaState extends State<NovaEntrega> {
     if (_formKey4.currentState.validate()) {
       AddEntrega().addEntrega(this.novaEntrega);
       Navigator.of(context).pop(true);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Entrega adicionada',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: const Duration(milliseconds: 1500),
+        width: 280.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0,
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        backgroundColor: Color.fromARGB(255, 25, 118, 70),
+      ));
     }
   }
 

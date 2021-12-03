@@ -17,7 +17,22 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
     _formKey5.currentState.save();
     if (_formKey5.currentState.validate()) {
       CadastroController().editaSangrador(_sangrador);
-      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Alteração Realizada',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: const Duration(milliseconds: 1500),
+        width: 280.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0,
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        backgroundColor: Color.fromARGB(255, 25, 118, 70),
+      ));
     }
   }
 

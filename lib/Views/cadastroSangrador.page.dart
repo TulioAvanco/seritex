@@ -23,6 +23,22 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
             email: _sangrador.email, password: _sangrador.senha);
         CadastroController().addSangrador(_sangrador);
         Navigator.of(context).pop(true);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'Sangrador adicionado',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          backgroundColor: Color.fromARGB(255, 25, 118, 70),
+        ));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -39,7 +55,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+            backgroundColor: Color.fromARGB(255, 173, 46, 36),
           ));
         } else if (e.code == 'email-already-in-use') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -56,7 +72,7 @@ class _CadastroSangradorState extends State<CadastroSangrador> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            backgroundColor: Color.fromARGB(255, 25, 118, 70),
+            backgroundColor: Color.fromARGB(255, 173, 46, 36),
           ));
         }
       } catch (e) {
