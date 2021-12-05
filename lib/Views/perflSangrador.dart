@@ -108,6 +108,7 @@ class _PerfilSangradorState extends State<PerfilSangrador> {
                             Padding(padding: EdgeInsets.only(top: 8)),
                             InkWell(
                                 onTap: () async {
+                                  // ignore: invalid_use_of_visible_for_testing_member
                                   PickedFile image = await ImagePicker.platform
                                       .pickImage(source: ImageSource.camera);
                                   uploadFile(uidLogado.uid, image);

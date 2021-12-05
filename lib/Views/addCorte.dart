@@ -111,23 +111,35 @@ class _AddCorteState extends State<AddCorte> {
                       var i = 1;
                       var dados2 = snapshot1.data;
                       int tabelas = int.parse(dados2['tabela']);
-                      List<Widget> radio = [];
-                      for (int x = 1; x <= tabelas; x++) {
-                        Corte adiciona = new Corte();
-                        adiciona.valor = x;
-                        adiciona.texto = 'Tabela ' + x.toString();
-                        radio.add(RadioListTile(
-                          title: Text(adiciona.texto),
-                          value: adiciona.valor,
-                          groupValue: novoCorte.valor,
-                          activeColor: Color.fromARGB(255, 25, 118, 70),
-                          onChanged: (valor) {
-                            setState(() {
-                              novoCorte.valor = valor;
-                            });
-                          },
-                        ));
+                      List<Widget> resp  = [];  
+                      List<RadioListTile> generateRadioTile(
+                          var objQuestion, StateSetter setState) {
+                        List<RadioListTile> radio = [];
+                        for (int x = 1; x <= objQuestion; x++) {
+                          Corte adiciona = new Corte();
+                          adiciona.valor = x;
+                          adiciona.texto = 'Talhão ' + x.toString();
+                          adiciona.valor = x;
+                          radio.add(RadioListTile(
+                            title: Text(adiciona.texto),
+                            value: adiciona.valor,
+                            groupValue: novoCorte.valor,
+                            activeColor: Color.fromARGB(255, 25, 118, 70),
+                            onChanged: (valor) {
+                              setState(() {
+                                novoCorte.valor = valor;
+                              });
+                            },
+                          ));
+                        }
+                        return radio;
                       }
+                     resp.add(StatefulBuilder(builder:
+                          (BuildContext context, StateSetter setState) {
+                        return Container(
+                          child: Column(children: generateRadioTile(tabelas, setState),),
+                        );
+                      }));
 
                       String pegaData;
                       while (i < dados.length) {
@@ -217,7 +229,7 @@ class _AddCorteState extends State<AddCorte> {
                                     return Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: [for (var x in radio) x]);
+                                        children: [for (var x in resp) x]);
                                   })),
                               Padding(padding: EdgeInsets.only(bottom: 32)),
                               ConstrainedBox(
